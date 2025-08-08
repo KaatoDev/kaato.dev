@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+._home {
+  color: #1c398e;
+  //animation: _home 2.5s ease-in-out 500ms;
+
+  ._text {
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: 3px white;
+  }
+}
+
+._login {
+  ._card {
+    backdrop-filter: blur(10px);
+    box-shadow: var(--boxs1);
+
+    ._form {
+      label {
+        p {
+          @apply text-sm ps-2;
+        }
+
+
+        input {
+          @apply bg-blue-200/10 px-2 py-1 text-ellipsis focus:outline-none focus:bg-blue-300/15;
+        }
+      }
+    }
+  }
+}
+
+@keyframes _home {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
