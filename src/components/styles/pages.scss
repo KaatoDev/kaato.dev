@@ -1,9 +1,6 @@
 @import "tailwindcss";
 
 ._home {
-  color: #1c398e;
-  //animation: _home 2.5s ease-in-out 500ms;
-
   ._text {
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 3px white;
@@ -27,14 +24,5 @@
         }
       }
     }
-  }
-}
-
-@keyframes _home {
-  from {
-    transform: translateY(100%);
-  }
-  to {
-    transform: translateY(0);
   }
 }

@@ -11,6 +11,8 @@
     --color3: #85a0f1;
     --color4: rgba(133, 160, 241, .15);
     --color5: rgba(133, 160, 241, .1);
+    --color6: rgb(26, 31, 49);
+    --color7: rgba(0, 0, 0, .15);
     /*--color3: #00b3ff;*/
 
     --boxs1: 0 0 8px var(--color2), 0 0 20px var(--color4) inset;
@@ -23,12 +25,17 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /*scrollbar-width: none;*/
 }
 
 body {
     color: var(--textcolor);
     background: var(--background);
     font-family: sans-serif;
+
+    &:has(._animateHome) {
+        animation: _home 2.5s ease-in-out 500ms;
+    }
 }
 
 ._background {
@@ -74,4 +81,26 @@ body {
 
 .bg-test {
     @apply bg-white/5 [&_*]:bg-white/5;
+}
+
+.no-scroll {
+    scrollbar-width: none;
+}
+
+@keyframes _home {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes _home2 {
+    from {
+        overflow: hidden;
+    }
+    to {
+        overflow: auto;
+    }
 }

@@ -1,7 +1,8 @@
-import {browserSessionPersistence, createUserWithEmailAndPassword, getAuth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithRedirect, signOut, validatePassword} from "firebase/auth";
+import {browserSessionPersistence, createUserWithEmailAndPassword, getAuth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, validatePassword} from "firebase/auth";
 import {firebaseApp} from "@/data/hooks/useFirebase";
 import {User} from "@firebase/auth";
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
+import useFirestore from "@/data/hooks/useFirestore";
 
 
 // Initialize Firebase Authentication and get a reference to the service
@@ -49,52 +50,49 @@ function logout() {
     })
 }
 
-function loginGoogle(): User | null {
-    const provider = new GoogleAuthProvider();
-    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-
-    signInWithRedirect(auth, provider)
-
-    getRedirectResult(auth).then((result) => {
-            if (result != null) {
-                // This gives you a Google Access Token. You can use it to access Google APIs.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential?.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                // IdP data available using getAdditionalUserInfo(result)
-                // ...
-                return user
-            }
-        }
-    ).catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-    })
-
-    return null
-}
 
 function passwordValidade(password: string) {
     const status = validatePassword(auth, password);
     return status
 }
 
+function loginGoogleRedirect() {
+    const provider = new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    signInWithRedirect(auth, provider);
+}
+
+function loginGooglePopup() {
+    const provider = new GoogleAuthProvider();
+    provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+    signInWithPopup(auth, provider);
+}
+
 export default function useAuth() {
-    const [user, setUser] = useState<User | null>(null)
+    const [user, setUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(true);
+    const {addUser} = useFirestore()
 
-    useEffect(() => {
+    const isSigned = () => !!user;
+
+    useLayoutEffect(() => {
+        // This runs once after redirect
+        getRedirectResult(auth)
+            .catch((error) => {
+                console.error("Google sign-in error:", error);
+            });
+
         const unsubscribe = onAuthStateChanged(auth, (userF) => {
-            setUser(userF)
-        })
+            if (userF != null) addUser(userF).then(() => {
+            }).catch((e) => {
+                console.log(e.message + ' erro user change')
+            })
+            setUser(userF);
+            setLoading(false)
+        });
 
-        return () => unsubscribe()
-    }, [])
+        return () => unsubscribe();
+    }, []);
 
-    return {user, login, signup, loginGoogle, logout, passwordValidade}
+    return {auth, user, isSigned, loading, login, signup, loginGoogleRedirect, loginGooglePopup, logout, passwordValidade}
 }

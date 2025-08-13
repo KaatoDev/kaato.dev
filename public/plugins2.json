@@ -1,0 +1,2003 @@
+[
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzScoreboard",
+    "description": "Plugin de Scoreboard completo e totalmente personalizável com suporte a placeholders (PlaceholderAPI) e scoreboard diferentes para staffs e players, display dinâmico de staffs em cada scoreboard e database via MySQL ou SQLite.",
+    "items": [
+      "Database via MySQL ou SQLite;",
+      "Personalização através do servidor;",
+      "Placeholders próprias e PlaceholderAPI;",
+      "Sem flickering;",
+      "Suporte a mútiplas scoreboards simultâneas;"
+    ],
+    "status": 3,
+    "version": "3.1",
+    "repository": "NotzScoreboardV3",
+    "image": "/images/NotzScoreboard2.png",
+    "imageBack": "/images/NotzScoreboard1.png",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [
+      {
+        "command": "notzsb",
+        "description": "Acesso ao menu administrador do plugin.",
+        "aliases": [
+          "nsb",
+          "notzscoreboard"
+        ],
+        "subcommands": [
+          {
+            "sub": "delete",
+            "description": "<scoreboard> - Cria a scoreboard com opção de já setar as templates;"
+          },
+          {
+            "sub": "list",
+            "description": "- Deleta uma scoreboard;"
+          },
+          {
+            "sub": "players",
+            "description": "- Lista todas as scoreboards criadas;"
+          },
+          {
+            "sub": "reload",
+            "description": "- Lista todos os players registrados e suas respectivas scoreboards;"
+          },
+          {
+            "sub": "reset",
+            "description": "<player> - Recarrega partes o plugin;"
+          },
+          {
+            "sub": "set",
+            "description": "<scoreboard> - Reseta a scoreboard do player para a scoreboard padrão;"
+          },
+          {
+            "sub": "update",
+            "description": "- Seta a própria scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "addplayer",
+            "description": "- Adiciona um player à scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "addgroup",
+            "description": "- Adiciona um grupo ao VisibleGroups da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "clearheader",
+            "description": "- Limpa a header da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "clearfooter",
+            "description": "- Limpa a footer da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "cleartemplate",
+            "description": "- Limpa o template da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "pause",
+            "description": "(minutes) - Pausa a atualização da scoreboard por X minutos (por padrão é pausado por 1 minuto);"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "players",
+            "description": "- Vê os players cadastrados na scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "remplayer",
+            "description": "- Remove um player da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "remgroup",
+            "description": "- Remove um grupo do VisibleGroups da scoreboar;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "setcolor",
+            "description": "- Seta uma nova cor da scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "setdisplay",
+            "description": "- Seta um novo display na scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "setheader",
+            "description": "- Seta uma nova header na scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "setfooter",
+            "description": "- Seta uma nova footer na scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "settemplate",
+            "description": "- Seta um novo template na scoreboard;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "view",
+            "description": "- Visualiza a scoreboard sem precisar setar;"
+          },
+          {
+            "$specialName": "scoreboard",
+            "sub": "visiblegroups",
+            "description": "- Vê os grupos visíveis inseridos no grupo."
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Habilita o player a utilizar o comando de admin /notzsb.",
+        "default": false
+      }
+    ],
+    "descriptionItems": [
+      "Scoreboards-> O plugin conta com scoreboards dinâmicas que atualizam somente placeholders inseridas nela em cada linha, sem que precise recarregar a scoreboard completamente! Contém também mútiplos comandos de personalização para que possam ser criadas e modificadas diretamente do servidor sem precisar mexer nos arquivos.",
+      "Grupos-> As scoreboards são separadas por grupos e pré-programadas para que seja possível visualizar players de outros grupos (e até do mesmo) na sua scoreboard ou do próprio grupo em outras scoreboards.",
+      "Templates-> Possui também um sistema de templates que podem ser criados no arquivo de configuração do plugin e setados através do jogo utilizando-os como Header, Footer ou o template principal, permitindo assim, ao mesmo tempo, uma maior customização e padronização de cada scoreboard.",
+      "Placeholders:: Você pode optar por utilizar as placeholders dinâmicas de outros plugins através do PlaceholderAPI ou placeholders estáticas próprias que podem ser criadas atravé do arquivo de configuração do plugin."
+    ],
+    "placeholders": [
+      "[{clan}] - Nome do clan (Simpleclans) [PlaceholderAPI];",
+      "[{clan_tag}] - Tag do clan (Simpleclans) [PlaceholderAPI];",
+      "[{clankdr}] - KDR do clan (Simpleclans) [PlaceholderAPI];",
+      "[{money}] - Dinheiro do player direto do Vault [PlaceholderAPI];",
+      "[{player_name}] - Nome do player;",
+      "[{player_displayname}] - Displayname do player;",
+      "[{ping}] - Ping do player;",
+      "[{tps}] - TPS do servidor [PlaceholderAPI];",
+      "[{staff}] - Pega o nick de um dos players online dos grupos visíveis daquele grupo. - Quantidade de players online nos grupos visíveis daquele grupo;",
+      "[{supstaff}] - Mesma coisa que o {staff}, porém retorna uma mensagem alternativa caso o player esteja offline;",
+      "[{staff_list}] - Quantidade de players online nos grupos visíveis daquele grupo;",
+      "[{staff_'group'}] - Pega um dos players daquele grupo;",
+      "[{'group'_list}] - Pega a quantidade de player online naquele grupo."
+    ],
+    "versions": [
+      {
+        "version": "3.1",
+        "changelog": [
+          "Trocada a versão do Spigot para 1.12.2; Separado a data class ScoreboardModel da ScoreboardM."
+        ]
+      },
+      {
+        "version": "3.2",
+        "changelog": [
+          "Possibilidade de título e linhas animadas."
+        ]
+      },
+      {
+        "version": "3.0",
+        "changelog": [
+          "Plugin recriado completamente do 0;",
+          "Refeito em Kotlin e otimizado 100% em comparação com a segunda versão;",
+          "Possibilidade de múltiplas scoreboards personalizadas e com layouts diversos;",
+          "Melhor organização e mais facilidade para conectar e assimilar informações de diversas scoreboards e seus respectivos players entre cada scoreboard."
+        ]
+      },
+      {
+        "version": "2.5",
+        "changelog": [
+          "Arrumando placeholder da scoreboard (antes ficava estática por causa disso);",
+          "Utilizado outra função mais otimizada para setar cada variável da scoreboard."
+        ]
+      },
+      {
+        "version": "2.4",
+        "changelog": [
+          "Arrumado atualização de {staff}, Event de entrada e saída de players;",
+          "Criado sistema de armazenamento próprio de staff e a diferenciação de cargo e scoreboard;",
+          "Código otimizado."
+        ]
+      },
+      {
+        "version": "2.0",
+        "changelog": [
+          "Plugin recriado completamente com adição de MySQL e setup via config.yml;",
+          "Diferenciação de cargo e scoreboard;",
+          "Melhor codificação."
+        ]
+      },
+      {
+        "version": "1.2.1",
+        "changelog": [
+          "Arrumado sistema de ping e o placeholder;",
+          "Adicionado permissões e suporte à múltiplas scoreboards de player através das permissões."
+        ]
+      }
+    ],
+    "dependencies": [
+      "PlaceholderAPI"
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMysteryBox",
+    "commands": [
+      {
+        "command": "notzsb",
+        "description": "Acesso ao menu administrador do plugin.",
+        "aliases": [
+          "caixas",
+          "caixa"
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Habilita o player a utilizar o comando de admin /nmb.",
+        "default": false
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0",
+        "changelog": [
+          "Plugin base criado;",
+          "Criado sistema de caixas e de rewards;",
+          "Possibilidade de editar itens na config ou (parcialmente) pelo jogo;",
+          "Adicionado sistema de animação ao abrir uma caixa."
+        ]
+      },
+      {
+        "version": "1.1",
+        "changelog": [
+          "Possibilidade de customização das caixas e recompensas 100% através do jogo;",
+          "Melhora no sistema de mensagens;",
+          "Implementação do NotzAPI."
+        ]
+      },
+      {
+        "version": "1.2",
+        "changelog": [
+          "Implementação de armazenamento em MySQL e SQLite."
+        ]
+      },
+      {
+        "version": "1.3",
+        "changelog": [
+          "Implementação de armazenamento em Firebase."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzWarps",
+    "commands": [
+      {
+        "command": "tpa",
+        "description": "Acesso aos comandos de tpa.",
+        "aliases": [
+          "tpaccept",
+          "tpaceitar",
+          "tpacancel",
+          "tpadeny",
+          "tparefuse",
+          "tpacancelar",
+          "tparecusar"
+        ]
+      },
+      {
+        "command": "warps",
+        "description": "Acesso aos comandos de warps.",
+        "aliases": [
+          "w",
+          "wp",
+          "ws",
+          "wps",
+          "warp",
+          "spawn",
+          "spawnvip"
+        ]
+      },
+      {
+        "command": "nwarp",
+        "description": "Acesso aos comandos de admin do plugin.",
+        "aliases": [
+          "nwp",
+          "nws",
+          "nwps",
+          "nwarps"
+        ],
+        "subcommands": [
+          "[autoslot] <on/off> - Habilita ou desabilita a auto distribuição das warps no menu;",
+          "[list] - Lista as warps que estão habilitadas;",
+          "[resetmenu] - Reseta o menu das warps;",
+          "[set] <warp> - Seta a localização atual numa warp existente ou nova, criando-a;",
+          "[setlore] <lore...> - Altera a lore padrão das warps (Cuidado pois reescreve as existentes);",
+          "[spawntowarp] <warp/on/off> - Habilita, desabilita ou altera a warp de spawn padrão;",
+          "[spawnvip] <warp/on/off> - Habilita, desabilita ou altera a warp de spawn padrão dos players VIPs;",
+          "[<warp>]->",
+          "[get] - Recebe o item da warp, a qual é setada no menu;",
+          "[remove] - Deleta uma warp;",
+          "[set] - Seta a localização atual na warp;",
+          "[setdisplay] <display...> - Altera o display do item de uma warp;",
+          "[setlore] <lore...> - Altera a lore do item de uma warp;",
+          "[setslot] <slot> - Altera o slot padrão de uma warp no menu;",
+          "[setMaterial] <material> - Altera o material do item de uma warp no menu;",
+          "[unsetslot] - Resetará o slot da warp, não será mostrado no menu."
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Habilita o player a utilizar o comando de admin /nw.",
+        "default": false
+      }
+    ],
+    "versions": [
+      {
+        "version": "2.0.1",
+        "changelog": [
+          "Trocado sistema de mensagens para arquivo;",
+          "Adicionado opção de correção de YAW ao setar uma warp (edite na config.yml);",
+          "Arrumado setar warp já existente."
+        ]
+      },
+      {
+        "version": "2.1",
+        "changelog": [
+          "Implementação do sistema de homes."
+        ]
+      },
+      {
+        "version": "1.0",
+        "changelog": []
+      },
+      {
+        "version": "1.2",
+        "changelog": [
+          "Adicionado algumas mensagens;",
+          "Arrumado sistema de delay e permissão;",
+          "Removido tpa próprio e sistema de TP (movido para o plugin NekoUtility);",
+          "Código otimizado."
+        ]
+      },
+      {
+        "version": "2.0",
+        "changelog": [
+          "Trocado build para gradle kotlin;",
+          "Atualizado NotzAPI para v0.4.5;",
+          "Arrumado diretório;",
+          "Reorganizado sistema de comandos e mensagens ao adicionar o CommandsManager;",
+          "Arrumado erro de criar item icon da warp quando autoslot off;",
+          "Recolocado sistema de TPA."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzPlants",
+    "versions": [
+      {
+        "version": "0.2",
+        "changelog": [
+          "Adicionado sistema de recompensas;",
+          "Melhorado habilitação de mensagens."
+        ]
+      },
+      {
+        "version": "1.0",
+        "changelog": [
+          "Implementação do NotzAPI e outras funções"
+        ]
+      },
+      {
+        "version": "0.1",
+        "changelog": [
+          "Criado:: Base do plugin;",
+          "Prevenção de quebra de plantação enquanto plugin não inicia;",
+          "Sistema de quebra de plantação que multiplica caso tenha uma permissão de multiplier e dropa ou envia ao inventário do player."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzCrates",
+    "commands": [
+      {
+        "command": "crates",
+        "description": "Acesso ao menu padrão de crates.",
+        "aliases": [
+          "crate",
+          "caixas",
+          "caixa"
+        ]
+      },
+      {
+        "command": "ncrates",
+        "description": "Comando de administrador.",
+        "aliases": [
+          "ncrate",
+          "nc"
+        ],
+        "subcommands": [
+          {
+            "normal": [
+              "[create] <Name> <Display> <Rarity> - Cria uma crate;",
+              "[getHoloRemover] - Recebe um removedor de holograma;",
+              "[isKey] - Identifica se o item atual na mão é uma Key;",
+              "[list] - Lista as crates;",
+              "[view] <keys/rewards> <Player> - Abre o inventário de keys ou rewards de um player para editar;"
+            ],
+            "special": [
+              {
+                "tags": [
+                  "Admin"
+                ],
+                "name": "[<crate>]->",
+                "sub": [
+                  "[clearLocations] - Reseta os locais onde há Crate setada;",
+                  "[clearRewards] - Reseta as recompensas da Crate;",
+                  "[disable/enable] - Habilita ou desabilita a Crate;",
+                  "[get] - Recebe a Crate para ser colocada;",
+                  "[key] (Player) - Dá ou recebe uma Key da Crate;",
+                  "[keyall] - Dá uma Key da Crate para todos os players online;",
+                  "[setDisplay] <Display> - Altera o display da Crate."
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Acesso aos comandos e funções de admin.",
+        "default": false
+      },
+      {
+        "permission": "viewadmin",
+        "description": "Acesso aos comandos de ver o inventário de keys e rewards dos players.",
+        "default": false
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0",
+        "changelog": [
+          "Adicionado sistema de gerenciamento de crates e keys;",
+          "Adicionado funções por interface, 'como': excluir crate, editar raridade da crate, editar recompensas (chance e quantidade), adicionar e remover recompensas, preview de crate;",
+          "Adicionado funções por comando, 'como': criar crate, checar key, pegar baú da crate, pegar e dar key, mudar display name da crate."
+        ]
+      },
+      {
+        "version": "1.5",
+        "changelog": [
+          "Sistema de Players:: Adicionado armazenamento de keys virtuais e de recompensas;",
+          "Sistema de Crates:: Funções de key virtual a física; Alteração de chest crate e informação nas keys ao alterar a raridade;",
+          "Sistema:: Adicionado mensagens para .yml para melhor personalização."
+        ]
+      },
+      {
+        "version": "2.0",
+        "changelog": [
+          "Geral:: Adicionado sistema de database por MySQL, integração com PlotSquared; Melhorado eventos de interação; Código mais clean e melhorado;",
+          "Sistema de Crates:: Adicionado títulos com o display da crate; Melhorado o sistema de gerenciamento de crates e keys, troca de raridade, sistema de ativação; Removido sistema de tamanho;",
+          "Sistema de Players:: Melhorado sistema de players, gerenciamento de keys e recompensas; Adicionado sistema para alterar inventário de recompensas e keys de forma fácil;",
+          "Sistema de SpecialItems:: Criado itens especiais, pode ser utilizado como Caixas Misteriosas, Crates Portáteis, etc; Sistema de diferenciar itens especiais de baús (que podem apenas ser colocados na plot)."
+        ]
+      },
+      {
+        "version": "3.1",
+        "changelog": [
+          "Sistema de /view (ver inventário...)"
+        ]
+      },
+      {
+        "version": "3.2",
+        "changelog": [
+          "Animação de recompensa das crates."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMysteryBox",
+    "commands": [
+      {
+        "command": "notzsb",
+        "description": "Acesso ao menu administrador do plugin.",
+        "aliases": [
+          "caixas",
+          "caixa"
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Habilita o player a utilizar o comando de admin /nmb.",
+        "default": false
+      }
+    ],
+    "versions": [
+      {
+        "version": "1.0",
+        "changelog": [
+          "Plugin base criado;",
+          "Criado sistema de caixas e de rewards;",
+          "Possibilidade de editar itens na config ou (parcialmente) pelo jogo;",
+          "Adicionado sistema de animação ao abrir uma caixa."
+        ]
+      },
+      {
+        "version": "1.1",
+        "changelog": [
+          "Possibilidade de customização das caixas e recompensas 100% através do jogo;",
+          "Melhora no sistema de mensagens;",
+          "Implementação do NotzAPI."
+        ]
+      },
+      {
+        "version": "1.2",
+        "changelog": [
+          "Implementação de armazenamento em MySQL e SQLite."
+        ]
+      },
+      {
+        "version": "1.3",
+        "changelog": [
+          "Implementação de armazenamento em Firebase."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzPlants",
+    "versions": [
+      {
+        "version": "0.2",
+        "changelog": [
+          "Adicionado sistema de recompensas;",
+          "Melhorado habilitação de mensagens."
+        ]
+      },
+      {
+        "version": "1.0",
+        "changelog": [
+          "Implementação do NotzAPI e outras funções"
+        ]
+      },
+      {
+        "version": "0.1",
+        "changelog": [
+          "Criado:: Base do plugin;",
+          "Prevenção de quebra de plantação enquanto plugin não inicia;",
+          "Sistema de quebra de plantação que multiplica caso tenha uma permissão de multiplier e dropa ou envia ao inventário do player."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzWarps",
+    "commands": [
+      {
+        "command": "tpa",
+        "description": "Acesso aos comandos de tpa.",
+        "aliases": [
+          "tpaccept",
+          "tpaceitar",
+          "tpacancel",
+          "tpadeny",
+          "tparefuse",
+          "tpacancelar",
+          "tparecusar"
+        ]
+      },
+      {
+        "command": "warps",
+        "description": "Acesso aos comandos de warps.",
+        "aliases": [
+          "w",
+          "wp",
+          "ws",
+          "wps",
+          "warp",
+          "spawn",
+          "spawnvip"
+        ]
+      },
+      {
+        "command": "nwarp",
+        "description": "Acesso aos comandos de admin do plugin.",
+        "aliases": [
+          "nwp",
+          "nws",
+          "nwps",
+          "nwarps"
+        ],
+        "subcommands": [
+          "[autoslot] <on/off> - Habilita ou desabilita a auto distribuição das warps no menu;",
+          "[list] - Lista as warps que estão habilitadas;",
+          "[resetmenu] - Reseta o menu das warps;",
+          "[set] <warp> - Seta a localização atual numa warp existente ou nova, criando-a;",
+          "[setlore] <lore...> - Altera a lore padrão das warps (Cuidado pois reescreve as existentes);",
+          "[spawntowarp] <warp/on/off> - Habilita, desabilita ou altera a warp de spawn padrão;",
+          "[spawnvip] <warp/on/off> - Habilita, desabilita ou altera a warp de spawn padrão dos players VIPs;",
+          "[<warp>]-> [get] - Recebe o item da warp, a qual é setada no menu;",
+          "[remove] - Deleta uma warp;",
+          "[set] - Seta a localização atual na warp;",
+          "[setdisplay] <display...> - Altera o display do item de uma warp;",
+          "[setlore] <lore...> - Altera a lore do item de uma warp;",
+          "[setslot] <slot> - Altera o slot padrão de uma warp no menu;",
+          "[setMaterial] <material> - Altera o material do item de uma warp no menu;",
+          "[unsetslot] - Resetará o slot da warp, não será mostrado no menu."
+        ]
+      }
+    ],
+    "permissions": [
+      {
+        "permission": "admin",
+        "description": "Habilita o player a utilizar o comando de admin /nw.",
+        "default": false
+      }
+    ],
+    "versions": [
+      {
+        "version": "2.0.1",
+        "changelog": [
+          "Trocado sistema de mensagens para arquivo;",
+          "Adicionado opção de correção de YAW ao setar uma warp (edite na config.yml);",
+          "Arrumado setar warp já existente."
+        ]
+      },
+      {
+        "version": "2.1",
+        "changelog": [
+          "Implementação do sistema de homes."
+        ]
+      },
+      {
+        "version": "1.0",
+        "changelog": [
+          "Warps:: Possui um menu que pode ter os slots das warps setados manualmentes ou distribuidas automaticamente. E caso esteja no automático, a ordem será atribuída à ordem dos slots setados, como também só aparecerão os que não estiverem com \"-1\" no slot;",
+          "Sistema fácil de criação e edição de warps, contendo slot, display e item;",
+          "Delay ao teleportar para as warps, mas players com permissão vip teleportarão instantanêamente;",
+          "Cancelamento de teleporte ao se movimentar;",
+          "TPAs:: Sistema de tpa intuitivo com hover e vários aliases para aceitar e recusar tpas;",
+          "Delay ao teleportar para os players, mas players com permissão vip teleportarão instantanêamente;",
+          "Cancelamento de teleporte ao se movimentar."
+        ]
+      },
+      {
+        "version": "1.2",
+        "changelog": [
+          "Adicionado algumas mensagens;",
+          "Arrumado sistema de delay e permissão;",
+          "Removido tpa próprio e sistema de TP (movido para o plugin NekoUtility);",
+          "Código otimizado."
+        ]
+      },
+      {
+        "tags": [
+          "Admin"
+        ],
+        "name": "NotzCrates",
+        "commands": [
+          {
+            "command": "crates",
+            "description": "Acesso ao menu padrão de crates.",
+            "aliases": [
+              "crate",
+              "caixas",
+              "caixa"
+            ]
+          },
+          {
+            "command": "ncrates",
+            "description": "Comando de administrador.",
+            "aliases": [
+              "ncrate",
+              "nc"
+            ],
+            "subcommands": [
+              {
+                "normal": [
+                  "[create] <Name> <Display> <Rarity> - Cria uma crate;",
+                  "[getHoloRemover] - Recebe um removedor de holograma;",
+                  "[isKey] - Identifica se o item atual na mão é uma Key;",
+                  "[list] - Lista as crates;",
+                  "[view] <keys/rewards> <Player> - Abre o inventário de keys ou rewards de um player para editar;"
+                ],
+                "special": [
+                  {
+                    "tags": [
+                      "Admin"
+                    ],
+                    "name": "[<crate>]->",
+                    "sub": [
+                      "[clearLocations] - Reseta os locais onde há Crate setada;",
+                      "[clearRewards] - Reseta as recompensas da Crate;",
+                      "[disable/enable] - Habilita ou desabilita a Crate;",
+                      "[get] - Recebe a Crate para ser colocada;",
+                      "[key] (Player) - Dá ou recebe uma Key da Crate;",
+                      "[keyall] - Dá uma Key da Crate para todos os players online;",
+                      "[setDisplay] <Display> - Altera o display da Crate."
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "permissions": [
+          {
+            "permission": "admin",
+            "description": "Acesso aos comandos e funções de admin.",
+            "default": false
+          },
+          {
+            "permission": "viewadmin",
+            "description": "Acesso aos comandos de ver o inventário de keys e rewards dos players.",
+            "default": false
+          }
+        ],
+        "versions": [
+          {
+            "version": "1.0",
+            "changelog": [
+              "Adicionado sistema de gerenciamento de crates e keys;",
+              "Adicionado funções por interface, 'como': excluir crate, editar raridade da crate, editar recompensas (chance e quantidade), adicionar e remover recompensas, preview de crate;",
+              "Adicionado funções por comando, 'como': criar crate, checar key, pegar baú da crate, pegar e dar key, mudar display name da crate."
+            ]
+          },
+          {
+            "version": "1.5",
+            "changelog": [
+              "Sistema de Players:: Adicionado armazenamento de keys virtuais e de recompensas;",
+              "Sistema de Crates:: Funções de key virtual a física; Alteração de chest crate e informação nas keys ao alterar a raridade;",
+              "Sistema:: Adicionado mensagens para .yml para melhor personalização."
+            ]
+          },
+          {
+            "version": "2.0",
+            "changelog": [
+              "Geral:: Adicionado sistema de database por MySQL, integração com PlotSquared; Melhorado eventos de interação; Código mais clean e melhorado;",
+              "Sistema de Crates:: Adicionado títulos com o display da crate; Melhorado o sistema de gerenciamento de crates e keys, troca de raridade, sistema de ativação; Removido sistema de tamanho;",
+              "Sistema de Players:: Melhorado sistema de players, gerenciamento de keys e recompensas; Adicionado sistema para alterar inventário de recompensas e keys de forma fácil;",
+              "Sistema de SpecialItems:: Criado itens especiais, pode ser utilizado como Caixas Misteriosas, Crates Portáteis, etc; Sistema de diferenciar itens especiais de baús (que podem apenas ser colocados na plot)."
+            ]
+          },
+          {
+            "version": "3.1",
+            "changelog": [
+              "Sistema de /view (ver inventário...)"
+            ]
+          },
+          {
+            "version": "3.2",
+            "changelog": [
+              "Animação de recompensa das crates."
+            ]
+          }
+        ]
+      },
+      {
+        "version": "2.0",
+        "changelog": [
+          "Trocado build para gradle kotlin;",
+          "Atualizado NotzAPI para v0.4.5;",
+          "Arrumado diretório;",
+          "Reorganizado sistema de comandos e mensagens ao adicionar o CommandsManager;",
+          "Arrumado erro de criar item icon da warp quando autoslot off;",
+          "Recolocado sistema de TPA."
+        ]
+      }
+    ]
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMines",
+    "description": "Plugin de minas customizadas, tanto públicas como privadas",
+    "items": [
+      "Sistema de criação e gerenciamento de minas",
+      "Sistema de minas por plot",
+      "Sistema de minas públicas e privadas (por player)"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzMines2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzVIP",
+    "description": "Plugin de VIP",
+    "items": [
+      "Sistema de VIP"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzVIP2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzFirst",
+    "description": "Plugin de First",
+    "items": [
+      "Sistema de First"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzFarm",
+    "description": "Plugin de farms complexas e automátizadas com gerenciamento em interface",
+    "items": [
+      "Sistema de gerenciamento de farm",
+      "Sistema de farm coop"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzFarm2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzSurvival",
+    "description": "Plugin de Survival",
+    "items": [
+      "Sistema de Survival"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzSurvival2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzCustomPlot",
+    "description": "Plugin de customização de plot",
+    "items": [
+      "Sistema de customização de plot"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMines",
+    "description": "Plugin de minas customizadas, tanto públicas como privadas",
+    "items": [
+      "Sistema de criação e gerenciamento de minas",
+      "Sistema de minas por plot",
+      "Sistema de minas públicas e privadas (por player)"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzMines2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzVIP",
+    "description": "Plugin de VIP",
+    "items": [
+      "Sistema de VIP"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzVIP2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzFirst",
+    "description": "Plugin de First",
+    "items": [
+      "Sistema de First"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzFarm",
+    "description": "Plugin de farms complexas e automátizadas com gerenciamento em interface",
+    "items": [
+      "Sistema de gerenciamento de farm",
+      "Sistema de farm coop"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzFarm2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzSurvival",
+    "description": "Plugin de Survival",
+    "items": [
+      "Sistema de Survival"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzSurvival2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzCustomPlot",
+    "description": "Plugin de customização de plot",
+    "items": [
+      "Sistema de customização de plot"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzEvents",
+    "description": "Plugin de eventos",
+    "items": [
+      "Sistema de events de chat, minigames, quiz, sorteios etc"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzChat",
+    "description": "Plugin de chat",
+    "items": [
+      "Sistema de Chat"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzChat2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzPass",
+    "description": "Plugin de passe com missões e quests",
+    "items": [
+      "Versão paga terá mais benefícios...",
+      "Sistema de passe de temporada completamente personalizável",
+      "Compatível com o NotzMissions",
+      "Compatível com o NotzQuests",
+      "Compatível com o NotzVIP"
+    ],
+    "status": 2,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzCustomItems",
+    "description": "Plugin de CustomItems",
+    "items": [
+      "Sistema de customização completa de itens",
+      "Customização de itens por chat ou interface"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzTickets",
+    "description": "Plugin de tickets de ajuda",
+    "items": [
+      "Sistema de tickets",
+      "Ranqueamento de staffs mais ativos etc",
+      "Tipagem de urgência de tickets",
+      "Tickets por cargo etc"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "/images/NotzTickets2.png",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzHelp",
+    "description": "Plugin de help",
+    "items": [
+      "Sistema de help personalizado",
+      "Sistema de menus e tutorial"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzRGB",
+    "description": "Plugin de RGB",
+    "items": [
+      "Sistema de RGB"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzLogin",
+    "description": "Plugin de login",
+    "items": [
+      "Sistema de login"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzLobby",
+    "description": "Plugin de lobby",
+    "items": [
+      "Sistema de lobby"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzPing",
+    "description": "Plugin de ping",
+    "items": [
+      "Sistema de ping"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzCrash",
+    "description": "Plugin de anti-dupe etc",
+    "items": [
+      "Sistema de moderação"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzDiscord",
+    "description": "Plugin de interação do servidor com o discord",
+    "items": [
+      "Sistema de mensagens do servidor via discord",
+      "Sistema de mensagens do discord via servidor"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzEssential",
+    "description": "Plugin de sistemas essenciais",
+    "items": [
+      "Sistemas de moderação"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMaintenance",
+    "description": "Plugin de manutenção",
+    "items": [
+      "Sistema de manutenção"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMissions",
+    "description": "Plugin de missões",
+    "items": [
+      "Sistema de missões"
+    ],
+    "status": 2,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzOnline",
+    "description": "Plugin de gerenciamento de tempo online",
+    "items": [
+      "Sistema de tempo online",
+      "Compatível com missões e quests",
+      "Compatível com o passe do servidor",
+      "Compatível com o sistema de chat"
+    ],
+    "status": 2,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzQuests",
+    "description": "Plugin de quests",
+    "items": [
+      "Sistema de quests"
+    ],
+    "status": 2,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzRoles",
+    "description": "Plugin de empregos",
+    "items": [
+      "Sistema de empregos"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzRemote",
+    "description": "Plugin de gerenciamento remoto de posses no servidor através de um aplicativo mobile",
+    "items": [
+      "Controle, gerencie e observe suas posses e seu dinheiro no servidor!",
+      "Sistema de controlar farms, máquinas etc",
+      "Login no aplicativo com a mesma conta do jogo"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzMachines",
+    "description": "Plugin de machines",
+    "items": [
+      "Sistema de machines"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzWart",
+    "description": "Plugin de \"máquinas\" de netherwart",
+    "items": [
+      "Sistema de \"máquinas\" de netherwart"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzEnterprise",
+    "description": "Plugin de empresas",
+    "items": [
+      "Sistema de empresas etc"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzDashboard",
+    "description": "Plugin de gerenciamento de plugins Notz através de uma dashboard no site",
+    "items": [
+      "Sistema de configuração de plugins via web"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      1.18
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  },
+  {
+    "tags": [
+      "Admin"
+    ],
+    "name": "NotzWorlds",
+    "description": "Plugin de modificações de mundo",
+    "items": [
+      "(Por enquanto)",
+      "Aplicar efeitos de poções por mundo"
+    ],
+    "status": 1,
+    "version": "0.1",
+    "repository": "",
+    "image": "",
+    "imageBack": "",
+    "versionType": "Spigot",
+    "testedVersions": [
+      "1.8",
+      "1.12"
+    ],
+    "commands": [],
+    "permissions": [],
+    "descriptionItems": [],
+    "versions": [
+      {
+        "version": "0.1",
+        "changelog": ""
+      }
+    ],
+    "future": [],
+    "anterior": [],
+    "dependencies": []
+  }
+]

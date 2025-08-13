@@ -10,14 +10,17 @@
   align-items: center;
   padding-top: 1rem;
   padding-bottom: 1rem;
-  background: linear-gradient(to bottom, var(--color2), transparent 80%);
+  background: linear-gradient(to bottom, var(--color7), transparent 70%);
+  border-radius: 0 0 30% 30%;
 
   ._logo {
+    //@apply w-[10rem] md:w-[13rem];
+    //width: 13rem;
     color: var(--color3);
     margin: 0;
   }
 
-  & ._search {
+  ._search {
     flex: 1;
     display: inline-flex;
     justify-content: center;
@@ -27,6 +30,7 @@
     height: 1.5rem;
     opacity: .5;
     transition: opacity .3s ease-in-out;
+    color: var(--color6);
 
     &:hover {
       opacity: .7;
@@ -45,10 +49,10 @@
         transition: all .3s ease-in-out;
       }
 
-      & ._search-img {
+      ._search-img {
         background-color: var(--color3);
         min-width: 2.5rem;
-        transition: background-color .3s ease-in-out, min-width .5s ease-in-out;
+        transition: all .3s ease-in-out;
 
         & img {
           opacity: 1;
@@ -80,7 +84,7 @@
       }
     }
 
-    & ._search-img {
+    ._search-img {
       background-color: lightgrey;
       min-width: 2rem;
       height: 100%;
@@ -98,14 +102,21 @@
     }
   }
 
-  & ._nav {
+  ._nav {
     position: relative;
-    width: 16rem;
+    width: 14rem;
+    gap: 2rem;
+    display: flex;
+    justify-content: end;
     color: var(--color3);
     padding: 0;
 
     & li {
-      width: 100%;
+      &:last-child {
+        width: 5rem;
+      }
+
+      width: 7rem;
       text-align: center;
       position: relative;
 
@@ -116,57 +127,61 @@
       &:has(p:hover, ._drop:hover) {
         p {
           border-width: 1px;
-          font-weight: 600;
-          font-size: 1.1rem;
+          font-weight: 750;
+          font-size: 1rem;
           box-shadow: var(--boxs2);
+          backdrop-filter: blur(10px);
         }
 
-        & ._drop {
+        ._drop {
           opacity: 1;
           pointer-events: auto;
+          backdrop-filter: blur(10px);
         }
       }
 
-      & > a, p {
+      & > a, & > p {
         border: solid 0 var(--color2);
-        padding: .4rem .8rem .5rem .8rem;
+        padding: .4rem .8rem;
         border-radius: 2rem;
-        backdrop-filter: blur(10px);
       }
 
       & > a:hover {
         border-width: 1px;
         box-shadow: var(--boxs2);
+        backdrop-filter: blur(10px);
       }
 
-      & > p {
+
+      p {
         border-radius: 1.2rem 1.2rem 0 0;
         cursor: default;
       }
 
-      & a, p {
+      & > a, p {
         margin: 0;
-        transition: font-weight .2s;
+        transition: all .2s;
+        font-size: .95rem;
 
         &:hover {
-          font-weight: 600;
-          font-size: 1.05rem;
+          font-weight: 750;
+          font-size: 1rem;
         }
       }
 
-      & ._drop {
+      ._drop {
         position: absolute;
         top: 96%;
-        width: 100%;
+        width: 8.5rem;
         flex-direction: column;
         border-radius: 1rem;
         border: solid 1px var(--color2);
-        backdrop-filter: blur(10px);
         box-shadow: var(--boxs1), 0 0 0 40px var(--color2) inset;
         opacity: 0;
         pointer-events: none;
+        transition: all .3s ease-out;
 
-        & a {
+        & > a {
           width: 100%;
           height: 2.2rem;
           display: flex;
@@ -174,18 +189,18 @@
           align-items: center;
           text-align: center;
           padding-bottom: .1rem;
-          transition: box-shadow .3s;
+          transition: all .3s ease-out;
 
           &:hover {
-            box-shadow: var(--boxs3);
             z-index: 1;
+            //font-weight: 750;
+            box-shadow: var(--boxs3);
           }
         }
 
         & :first-child {
           border-bottom: solid 1px var(--color2);
           border-radius: 1rem 1rem 0 0;
-          transition: box-shadow .2s;
         }
 
         & :last-child {
@@ -197,7 +212,7 @@
     @media (max-width: 768px) {
       width: 14rem;
 
-      & ._port {
+      ._port {
         width: 200%;
       }
     }

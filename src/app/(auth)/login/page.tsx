@@ -1,32 +1,36 @@
 'use client'
-import "../../components/styles/pages.scss";
-import {useState} from "react";
+import "../../../components/styles/pages.scss";
+import {useLayoutEffect, useState} from "react";
 import {useUser} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
+import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 export default function Login() {
-    const {user, isSigned} = useUser()
-    const {login, logout} = useAuth()
+    const {isSigned, isLoaded} = useUser()
+    const {login, loginGooglePopup} = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
 
-    // useEffect(() => {
-    //     if (isSigned) {
-    //         window.location.href = '/'
-    //     } else {
-    //         console.log(user + " aaaaa")
-    //     }
-    // }, [])
+    const router = useRouter()
 
-    function loginBtn() {
-        login(email, password)
+    // const [errorMessage, setErrorMessage] = useState('')
+
+    function loginBtn(google: boolean = false) {
+        if (google) loginGooglePopup()
+        else login(email, password)
+
+        if (isLoaded && isSigned()) router.push('/perfil')
     }
+
+    useLayoutEffect(() => {
+        if (isLoaded && isSigned()) router.push('/perfil')
+    }, [isLoaded, isSigned])
+
 
     return (
         <div className={'_login full flex-center'}>
-            <div className={'_card border border-black/10 rounded-3xl p-6 bgs-test'}>
-                {user ? user.email : "aaa"}
+            <div className={'_card flex flex-col border border-black/10 rounded-3xl p-6 gap-5'}>
                 <form method={'POST'} action={'/submit-form'} className={'_form flex-center flex-col gap-3'}>
                     <label htmlFor='email'>
                         <p>Email:</p>
@@ -41,6 +45,14 @@ export default function Login() {
                         loginBtn()
                     }}/>
                 </form>
+                <div className={'flex w-full h-fit'}>
+                    <button className={"relative w-full h-10 flex cursor-pointer"} onClick={(e) => {
+                        e.preventDefault()
+                        loginBtn(true)
+                    }}>
+                        <Image src={'google/web_light_rd_ctn.svg'} alt={'google'} fill className={'object-contain'}/>
+                    </button>
+                </div>
             </div>
         </div>
     );

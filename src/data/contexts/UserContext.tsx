@@ -1,51 +1,37 @@
 'use client'
 
-import {createContext, ReactNode, useContext, useState} from "react";
+import {createContext, ReactNode, useContext} from "react";
 import {User} from "@firebase/auth";
 import useAuth from "@/data/hooks/useAuth";
+import useFirestore from "@/data/hooks/useFirestore";
+import {SuperUserModel} from "@/data/models/SuperUserModel";
 
 interface UserContextType {
     user: User | null
     isSigned: () => boolean
-    // loading: boolean
+    isLoaded: boolean
+    isAdmin: () => Promise<SuperUserModel | null>
 }
 
-const UserContext = createContext<UserContextType>({user: null, isSigned: () => false})
+const UserContext = createContext<UserContextType>({
+    user: null,
+    isSigned: () => false,
+    isLoaded: true,
+    isAdmin: async () => null,
+})
 
 export function UserProvider({children}: { children: ReactNode }) {
-    // const [user, setUser] = useState<User | null>(null)
-    // const [isSigned, setIsSigned] = useState(false)
-    const [loading, setLoading] = useState(true)
-    const {user} = useAuth()
-    const isSigned = () => {
-        console.log(!!user)
-        return !!user
+    const {user, isSigned, loading} = useAuth()
+    const isLoaded = !loading
+    const {getSuperUser} = useFirestore()
+
+    async function isAdmin() {
+        return !!user ? getSuperUser(user) : null
     }
-    // const {authLogin, authSignup, authLoginGoogle, authLogout, authValidadePassword, authStateChanged} = useAuth
-
-    // function initializeUser(user: User | null) {
-    //     setIsSigned(user != null)
-    //     setUser(user)
-    // }
-
-    // async function login(email: string, password: string) {
-    //     if (!isSigned) {
-    //         initializeUser(await authLogin(email, password))
-    //     }
-    // }
-    //
-    // async function loginGoogle(email: string, password: string) {
-    //     if (!isSigned) {
-    //         initializeUser(await authLoginGoogle())
-    //     }
-    // }
-    //
-    // useEffect(() => {
-    //     return authStateChanged(initializeUser)
-    // }, [])
 
     return (
-        <UserContext value={{user, isSigned}}>
+        // <UserContext value={{user, isSigned, isLoaded, isAdmin, hasPermission}}>
+        <UserContext value={{user, isSigned, isLoaded, isAdmin}}>
             {children}
         </UserContext>
     )

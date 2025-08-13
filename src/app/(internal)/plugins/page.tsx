@@ -1,4 +1,4 @@
-import "../../components/styles/pages.scss";
+import "../../../components/styles/pages.scss";
 
 export default function Home() {
     return (
