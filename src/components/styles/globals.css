@@ -5,19 +5,28 @@
     --background: black;
     /*/ / --background: #171717;*/
 
-    --color0: #1c398e;
-    --color1: rgba(0, 0, 0, .3);
-    --color2: rgba(0, 0, 0, .1);
-    --color3: #85a0f1;
-    --color4: rgba(133, 160, 241, .15);
-    --color5: rgba(133, 160, 241, .1);
-    --color6: rgb(26, 31, 49);
-    --color7: rgba(0, 0, 0, .15);
-    /*--color3: #00b3ff;*/
+    --color1: #1c398e;
+    --color2: #85a0f1;
+    --color3: #00b3ff;
+    --color4: rgb(26, 31, 49);
 
-    --boxs1: 0 0 8px var(--color2), 0 0 20px var(--color4) inset;
-    --boxs2: 0 0 5px var(--color2), 0 0 10px var(--color4) inset;
-    --boxs3: 0 0 3px var(--color2), 0 0 7px var(--color5) inset;
+    --color0dark1: rgba(0, 0, 0, .3);
+    --color0dark2: rgba(0, 0, 0, .15);
+    --color0dark3: rgba(0, 0, 0, .1);
+
+    --color2light1: rgba(133, 160, 241, .15);
+    --color2light2: rgba(133, 160, 241, .1);
+    --color2light3: rgba(133, 160, 241, .05);
+    --color3light1: rgba(0, 179, 255, 0.3);
+
+
+    --boxs1: 0 0 8px var(--color0dark3), 0 0 20px var(--color2light1) inset;
+    --boxs2: 0 0 5px var(--color0dark3), 0 0 10px var(--color2light1) inset;
+    --boxs3: 0 0 3px var(--color0dark3), 0 0 7px var(--color2light2) inset;
+    --boxs4: 1px -1px 8px var(--color0dark2), -2px 2px 3px var(--color2light3) inset;
+    --boxs5: 1px -1px 8px var(--color0dark3), -2px 2px 3px var(--color2light2) inset;
+    --boxs6: 0 0 3px rgba(182, 0, 55, 0.3), 0 0 8px rgba(241, 112, 74, 0.1) inset;
+    --boxs7: 0 0 7px rgba(182, 0, 55, 0.4), 0 0 12px rgba(241, 112, 74, 0.2) inset;
 }
 
 
@@ -25,7 +34,7 @@ html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /*scrollbar-width: none;*/
+    scrollbar-width: none;
 }
 
 body {
@@ -39,6 +48,10 @@ body {
 }
 
 ._background {
+    @apply w-full h-full;
+    z-index: -2;
+    content: '';
+
     &:before {
         position: absolute;
         content: '';
@@ -48,7 +61,7 @@ body {
         height: 100%;
         z-index: -2;
 
-        background-color: var(--color0);
+        background-color: var(--color1);
         border-radius: 4rem;
     }
 
@@ -61,8 +74,8 @@ body {
         height: 100%;
         z-index: -1;
 
-        background: linear-gradient(90deg, var(--color1), var(--color2), transparent 25% 75%, var(--color2), var(--color1)),
-        radial-gradient(circle, transparent 55%, var(--color2), var(--color1));
+        background: linear-gradient(90deg, var(--color0dark1), var(--color0dark3), transparent 25% 75%, var(--color0dark3), var(--color0dark1)),
+        radial-gradient(circle, transparent 55%, var(--color0dark3), var(--color0dark1));
         border-radius: 4rem;
     }
 }

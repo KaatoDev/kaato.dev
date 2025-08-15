@@ -9,8 +9,22 @@
 
 ._login {
   ._card {
-    backdrop-filter: blur(10px);
+    background-color: var(--color1);
     box-shadow: var(--boxs1);
+
+    a {
+      @apply text-blue-200/80 hover:text-blue-200;
+      transition: color .1s ease-in-out;
+      filter: drop-shadow(0 0 3px var(--color0dark2));
+    }
+
+    ._register-link {
+      transition: translate .2s ease-in-out, color .1s ease-in-out;
+
+      &:hover {
+        transition: translate .5s ease-in-out, color .1s ease-in-out;
+      }
+    }
 
     ._form {
       label {

@@ -14,17 +14,14 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: Readonly<{
-    children: React.ReactNode;
-}>) {
+export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="pt-BR">
-        <body className={'antialiased min-h-screen h-screen flex flex-col'}>
+        <body className={'relative antialiased min-h-screen h-screen flex flex-col'}>
+        <div className={'fixed _background'}/>
         <ContextProvider>
             <Header/>
-            <main className={'_background flex-1'}>
+            <main className={'flex-1'}>
                 {children}
                 {/*<Footer/>*/}
             </main>

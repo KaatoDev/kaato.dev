@@ -31,9 +31,15 @@ export interface PluginModelOld {
     worksWith?: PluginModel[];
 }
 
-interface PluginVersion {
+export interface PluginVersion {
     version: string;
     changelog: string[];
+}
+
+export interface PluginPermission {
+    permission: string;
+    description: string;
+    default: boolean;
 }
 
 export interface PluginModel {
@@ -41,8 +47,8 @@ export interface PluginModel {
     status: 1 | 2 | 3 | 4
     name: string
     description: string
-    version: string | number
-    versionType: string
+    serverVersion: string | number
+    serverType: string
     items: string[]
     testedVersions: string[]
     tags: string[]
@@ -51,21 +57,47 @@ export interface PluginModel {
     image?: string
     imageBack?: string
     dependencies?: string
-    permissions?: string[]
+    permissions?: PluginPermission[]
     descriptionItems?: string[]
     placeholders?: string[]
 }
 
-export function createPlugin(versions: PluginVersion, status: 1 | 2 | 3 | 4, name: string, description: string, version: string | number, items: string[], testedVersions: string[], tags: string[]): PluginModel {
-    return {
+export function createPlugin(versions: PluginVersion,
+                             status: 1 | 2 | 3 | 4,
+                             name: string,
+                             description: string,
+                             serverVersion: string | number,
+                             items: string[],
+                             testedVersions: string[],
+                             tags: string[],
+                             commands?: string[],
+                             repository?: string | null,
+                             image?: string | null,
+                             imageBack?: string | null,
+                             dependencies?: string | null,
+                             permissions?: PluginPermission[] | null,
+                             descriptionItems?: string[] | null,
+                             placeholders?: string[] | null): PluginModel {
+    const plugin: PluginModel = {
         versions,
         status,
         name,
         description,
-        version,
+        serverVersion,
         items,
         testedVersions,
         tags,
-        versionType: 'spigot'
+        serverType: 'spigot'
     }
+
+    if (commands) plugin.commands = commands
+    if (repository) plugin.repository = repository
+    if (image) plugin.image = image
+    if (imageBack) plugin.imageBack = imageBack
+    if (dependencies) plugin.dependencies = dependencies
+    if (permissions) plugin.permissions = permissions
+    if (descriptionItems) plugin.descriptionItems = descriptionItems
+    if (placeholders) plugin.placeholders = placeholders
+
+    return plugin
 }

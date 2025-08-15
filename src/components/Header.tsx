@@ -16,8 +16,8 @@ export function Header() {
                 <h2 className={'_logo text-3xl'}>KaaDev</h2>
             </Link>
             <div className="_search">
-                <label className=" flex-center">
-                    <input type=" text" placeholder=" Pesquise um plugin"/>
+                <label className="flex-center">
+                    <input type="text" placeholder=" Pesquise um plugin"/>
                 </label>
                 <div className="_search-img flex-center">
                     <div className={'relative flex-center h-4 aspect-square mr-1.5 mb-0.5'}>
@@ -34,13 +34,13 @@ export function Header() {
                     </div>
                 </li>
                 <li>
-                    <Link className={'_port flex-center'} href={`/${loginProfile.toLowerCase()}`}>
+                    <Link className={'_ports flex-center'} href={`/${loginProfile.toLowerCase()}`}>
                         {loginProfile}
                     </Link>
-                    <div className="_drop flex-center">
-                        <Link href="/plugins">Plugins</Link>
-                        <Link href="/sites">Sites</Link>
-                    </div>
+                    {/*<div className="_drop flex-center">*/}
+                    {/*    <Link href="/plugins">Plugins</Link>*/}
+                    {/*    <Link href="/sites">Sites</Link>*/}
+                    {/*</div>*/}
                 </li>
             </ul>
         </header>

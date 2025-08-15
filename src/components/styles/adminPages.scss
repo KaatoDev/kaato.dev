@@ -1,1 +1,113 @@
 @import "tailwindcss";
+
+._admin {
+  ._menu-open {
+    box-shadow: var(--boxs5);
+  }
+
+  ._menu-closed {
+    box-shadow: var(--boxs4);
+  }
+
+  ._content-hidden {
+    opacity: 0;
+  }
+}
+
+._create-plugin {
+  input, select, textarea {
+    @apply max-w-full;
+    outline: none;
+
+    &:required {
+      animation: _required 3s ease-in-out infinite;
+    }
+  }
+
+  label {
+    @apply pt-2 pb-3 rounded-2xl;
+
+    &:has(input:required) {
+      animation: _required 3s ease-in-out infinite;
+    }
+
+    & > p {
+      filter: drop-shadow(0 0 2px var(--color0dark1));
+    }
+  }
+
+  legend {
+    filter: drop-shadow(0 0 2px var(--color0dark1));
+  }
+
+  ._select {
+    @apply w-fit rounded-xl p-1 overflow-hidden text-center relative;
+    background-color: var(--color0dark1);
+    appearance: none;
+
+
+    &::after {
+      @apply w-5 h-5 absolute inset-0 top-0;
+      content: '';
+      background: black;
+      //background-image: image('/google/double_arrow_backward.svg');
+    }
+  }
+
+  ._form {
+    box-shadow: var(--boxs3);
+  }
+
+  ._area {
+    @apply w-full h-full flex flex-col justify-evenly items-center p-3 gap-5;
+  }
+
+  ._area2 {
+    @apply flex max-lg:flex-col justify-evenly items-center p-3 gap-5;
+  }
+
+  ._tv {
+    grid-template-columns: repeat(auto-fit, minmax(var(--sizeCheckbox), auto));
+    box-shadow: var(--boxs3);
+
+    label {
+      &:hover {
+        box-shadow: 0 0 6px var(--color2light1) inset;
+      }
+
+      &:has(input:checked) {
+        box-shadow: 0 0 6px var(--color0dark3), 0 0 6px var(--color2light1) inset;
+      }
+    }
+
+    &:has(input:required) {
+      animation: _required 3s ease-in-out infinite;
+    }
+  }
+
+  ._lb {
+    @apply w-full h-full flex flex-col justify-center items-center;
+    //box-shadow: var(--boxs3);
+
+    input, textarea {
+      @apply overflow-ellipsis rounded-lg py-1 px-3 bg-white/5;
+      box-shadow: var(--boxs1);
+
+      &::placeholder {
+        @apply text-white/55;
+      }
+    }
+  }
+}
+
+@keyframes _required {
+  0% {
+    box-shadow: var(--boxs7);
+  }
+  50% {
+    box-shadow: var(--boxs3);
+  }
+  100% {
+    box-shadow: var(--boxs7);
+  }
+}

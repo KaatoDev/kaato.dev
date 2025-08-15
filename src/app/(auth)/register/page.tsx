@@ -3,6 +3,7 @@ import "../../../components/styles/pages.scss";
 import {useState} from "react";
 import {useUser} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
+import Link from "next/link";
 
 export default function Login() {
     const {user, isSigned} = useUser()

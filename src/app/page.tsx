@@ -1,13 +1,18 @@
 'use client'
 import "../components/styles/pages.scss";
-import {useLayoutEffect} from "react";
+import {useEffect, useLayoutEffect} from "react";
 
 export default function Home() {
     useLayoutEffect(() => {
         document.body.style.overflow = 'hidden'
         setTimeout(() => {
             document.body.style.overflow = 'auto'
+            document.querySelector('#__home')?.classList.remove('_background')
         }, 3000);
+    }, [])
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
     }, [])
 
     return (
@@ -19,7 +24,7 @@ export default function Home() {
                     ))}
                 </p>
             </div>
-            <div className={'_background z-50 full flex-center overflow-hidden'}>
+            <div id={'__home'} className={'_background z-50 full flex-center overflow-hidden'}>
                 ss
             </div>
         </div>
