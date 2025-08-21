@@ -24,18 +24,6 @@
     }
   }
 
-  label {
-    @apply pt-2 pb-3 rounded-2xl;
-
-    &:has(input:required) {
-      animation: _required 3s ease-in-out infinite;
-    }
-
-    & > p {
-      filter: drop-shadow(0 0 2px var(--color0dark1));
-    }
-  }
-
   legend {
     filter: drop-shadow(0 0 2px var(--color0dark1));
   }
@@ -54,8 +42,24 @@
     }
   }
 
+  li::marker {
+    color: var(--color6);
+  }
+
+  .libtn {
+    @apply absolute inset-0 w-5 aspect-square rounded-lg opacity-50 translate-x-[-118%] translate-y-0.5 cursor-pointer;
+    content: '';
+    &:hover {
+      background-color: var(--color6);
+    }
+  }
+
   ._form {
     box-shadow: var(--boxs3);
+  }
+
+  fieldset {
+    background: var(--color5light1);
   }
 
   ._area {
@@ -67,6 +71,7 @@
   }
 
   ._tv {
+    @apply rounded-2xl;
     grid-template-columns: repeat(auto-fit, minmax(var(--sizeCheckbox), auto));
     box-shadow: var(--boxs3);
 
@@ -86,7 +91,16 @@
   }
 
   ._lb {
-    @apply w-full h-full flex flex-col justify-center items-center;
+    @apply w-full h-full flex flex-col justify-center items-center pt-2 pb-3 rounded-2xl;
+
+    &:has(input:required) {
+      animation: _required 3s ease-in-out infinite;
+    }
+
+    & > p {
+      filter: drop-shadow(0 0 2px var(--color0dark1));
+    }
+
     //box-shadow: var(--boxs3);
 
     input, textarea {

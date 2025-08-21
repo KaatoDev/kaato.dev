@@ -2,7 +2,7 @@ import {browserSessionPersistence, createUserWithEmailAndPassword, getAuth, getR
 import {firebaseApp} from "@/data/hooks/useFirebase";
 import {User} from "@firebase/auth";
 import {useLayoutEffect, useState} from "react";
-import useFirestore from "@/data/hooks/useFirestore";
+import useUserDb from "@/data/hooks/useUserDb";
 
 
 // Initialize Firebase Authentication and get a reference to the service
@@ -71,7 +71,7 @@ function loginGooglePopup() {
 export default function useAuth() {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
-    const {addUser} = useFirestore()
+    const {addUser} = useUserDb()
 
     const isSigned = () => !!user;
 

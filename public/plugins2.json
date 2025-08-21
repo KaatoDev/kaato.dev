@@ -60,82 +60,82 @@
             "description": "- Seta a própria scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "addplayer",
             "description": "- Adiciona um player à scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "addgroup",
             "description": "- Adiciona um grupo ao VisibleGroups da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "clearheader",
             "description": "- Limpa a header da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "clearfooter",
             "description": "- Limpa a footer da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "cleartemplate",
             "description": "- Limpa o template da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "pause",
             "description": "(minutes) - Pausa a atualização da scoreboard por X minutos (por padrão é pausado por 1 minuto);"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "players",
             "description": "- Vê os players cadastrados na scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "remplayer",
             "description": "- Remove um player da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "remgroup",
             "description": "- Remove um grupo do VisibleGroups da scoreboar;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "setcolor",
             "description": "- Seta uma nova cor da scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "setdisplay",
             "description": "- Seta um novo display na scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "setheader",
             "description": "- Seta uma nova header na scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "setfooter",
             "description": "- Seta uma nova footer na scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "settemplate",
             "description": "- Seta um novo template na scoreboard;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "view",
             "description": "- Visualiza a scoreboard sem precisar setar;"
           },
           {
-            "$specialName": "scoreboard",
+            "specialName": "scoreboard",
             "sub": "visiblegroups",
             "description": "- Vê os grupos visíveis inseridos no grupo."
           }

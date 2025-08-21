@@ -4,12 +4,12 @@ import {useLayoutEffect} from "react";
 import {useUser} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
 import {useRouter} from "next/navigation";
-import useFirestore from "@/data/hooks/useFirestore";
+import useUserDb from "@/data/hooks/useUserDb";
 
 export default function Login() {
-    const {user, isSigned, isLoaded} = useUser()
+    const {user, isSigned, isLoaded} = useUserDb()
     const {logout} = useAuth()
-    const {addSuperUser} = useFirestore()
+    const {addSuperUser} = useUserDb()
     const router = useRouter()
 
     useLayoutEffect(() => {

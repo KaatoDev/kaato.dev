@@ -1,17 +1,18 @@
 'use client'
 import React, {CSSProperties, useState} from "react";
-import {PluginPermission, PluginVersion} from "@/data/models/PluginModel";
+import {createPluginModel, PluginCommand, PluginPermission, PluginSubCommand, PluginVersion} from "@/data/models/PluginModel";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Login() {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [version, setVersion] = useState('')
     const [serverVersion, setServerVersion] = useState('')
-    const [status, setPluginStatus] = useState(1)
+    const [status, setPluginStatus] = useState<1 | 2 | 3 | 4>(1)
     const [versions, setVersions] = useState<PluginVersion[]>([])
-    const [permission, setPermission] = useState<PluginPermission>({permission: '', description: '', default: false})
     const [permissions, setPermissions] = useState<PluginPermission[]>([])
+    const [commands, setCommands] = useState<PluginCommand[]>([])
     const [testedVersions, setTestedVersions] = useState<string[]>(['1.8'])
     const [tags, setTags] = useState<string[]>(['RankUp'])
     const [items, setItems] = useState<string[]>([])
@@ -27,19 +28,74 @@ export default function Login() {
     const statuses = ['Disponível', 'Em desenvolvimento', 'Em planejamento', 'Pendente']
     const pluginTags = ['Essencial', 'Economia', 'RankUp', 'Prison', 'Factions', 'Minigames', 'Moderação', 'API']
 
-    function handlePermission(it: boolean | string, option: 1 | 2 | 3) {
-        const perm = permission
-        switch (option) {
-            case 1:
-                perm.permission = it as string;
-                break;
-            case 2:
-                perm.description = it as string;
-                break;
-            case 3:
-                perm.default = it as boolean;
-        }
-        setPermission(perm)
+    function handleVersions(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const data = new FormData(e.currentTarget)
+        const pl = Object.fromEntries(data.entries()) as { version: string, changelog: string }
+        const pluginVersion = {version: pl.version, changelog: pl.changelog.split('\n').filter(i => i.length > 0)}
+
+        if (pluginVersion.version.length === 0 || versions.map((it) => it.version).includes(pluginVersion.version)) return
+        setVersions([...versions, pluginVersion])
+        e.currentTarget.reset()
+    }
+
+    function removePluginVersion(it: PluginVersion) {
+        const pls = versions.filter(i => i !== it)
+        setVersions(pls)
+    }
+
+    function handleCommands(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const data = new FormData(e.currentTarget)
+        const cmd = Object.fromEntries(data.entries()) as unknown as { command: string, description: string, aliases: string }
+        const command = {command: cmd.command, description: cmd.description, aliases: cmd.aliases.split(','), subCommands: []}
+
+        if (command.command.length === 0 || commands.map((it) => it.command).includes(command.command)) return
+        setCommands([...commands, command])
+        e.currentTarget.reset()
+    }
+
+    function removeCommand(it: PluginCommand) {
+        const cmds = commands.filter(i => i !== it)
+        setCommands(cmds)
+    }
+
+    function handleSubcommands2(i: number, e: React.FormEvent<HTMLFormElement>, hasSpecialName: boolean, specialName?: string) {
+        e.preventDefault()
+        const data = new FormData(e.currentTarget)
+        const sub = Object.fromEntries(data.entries()) as unknown as PluginSubCommand
+        if (!!specialName) sub.specialName = specialName
+        if ([sub.sub, sub.description].filter((it) => it.length == 0).length > 0 || (hasSpecialName && sub.specialName?.length == 0)) return
+        const cmds = commands
+        if (cmds[i].subCommands.map((it) => {
+            return it.specialName == sub.specialName && it.sub == sub.sub
+        }).includes(true)) return
+
+        cmds[i].subCommands.push(sub)
+        setCommands([...cmds])
+        e.currentTarget.reset()
+    }
+
+    async function removeSubCommand(it: PluginCommand, its: PluginSubCommand) {
+        const cmds = commands.filter(i => i !== it)
+        it.subCommands = it.subCommands.filter(i => i !== its)
+        setCommands([...cmds, it])
+    }
+
+    function handlePermissions(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        const data = new FormData(e.currentTarget)
+        const perm = Object.fromEntries(data.entries()) as unknown as { permission: string, description: string, isDefault: string }
+        const permission = {permission: perm.permission, description: perm.description, isDefault: perm.isDefault == 'true'}
+
+        if (permission.permission.length === 0 || permission.description.length === 0) return
+        setPermissions([...permissions, permission])
+        e.currentTarget.reset()
+    }
+
+    function removePermission(it: PluginPermission) {
+        const perms = permissions.filter(i => i !== it)
+        setPermissions(perms)
     }
 
     function handleRequired(it: string | string[] | PluginVersion[]) {
@@ -83,172 +139,338 @@ export default function Login() {
 
         if (isRequired) return
 
-        // TODO
+        createPluginModel(versions, status, name, description, serverVersion, items, testedVersions, tags, commands, repository, imageLink, backImageLink, dependencies.join(', '), permissions, descriptionItems, placeholders)
     }
 
-    return (
-        <div className={'_create-plugin containerer'}>
-            <form method={'POST'} action={'/submit-form'} className={'bg-test _form flex flex-col justify-center items-center md:grid grid-cols-2 xl:grid-cols-3 grid-flow-dense gap-10 p-5'}>
-
-                <div className={'_area'}>
-                    <label className={'_lb'} htmlFor={'name'}>
-                        <p>Nome do plugin:</p>
-                        <input type="text" name={'name'} required={handleRequired(name)} placeholder={'NotzPlugin'} onChange={(e) => setName(e.target.value)}/>
-                    </label>
-
-                    <label className={'_lb'} htmlFor={'description'}>
-                        <p>Descrição do plugin:</p>
-                        <input type="text" name={'description'} required={handleRequired(description)} placeholder={'Plugin de rankup'} onChange={(e) => setDescription(e.target.value)}/>
-                    </label>
-                </div>
-
-                <div className={'_area'}>
-                    <label className={'flex-center max-2xl:flex-col gap-2'} htmlFor={'serverVersion'}>
-                        <p>Versão do servidor:</p>
-                        {/*<input type="reset" name={'serverVersion'} placeholder={'1.8 - 1.21'} onChange={(e) => setServerVersion(e.target.value)}/>*/}
-                        <select className={'_select'} name="serverVersion" onChange={(e) => setServerVersion(e.target.value)}>
-                            {versionList.map((it, i) =>
-                                <option key={i} value={it}>{it}</option>
-                            )}
-                        </select>
-                    </label>
-
-                    <label className={'flex-center flex-col gap-2'} htmlFor={'status'}>
-                        <p>Status desenvolvimento:</p>
-                        <select className={'_select'} name="status" onChange={(e) => setPluginStatus(e.target.value as unknown as number)}>
-                            {statuses.map((it, i) =>
-                                <option key={i} value={i + 1}>{it}</option>
-                            )}
-                        </select>
-                    </label>
-                </div>
-
-                <div className={'_area2 col-span-1 md:col-span-2 xl:col-span-3'}>
-                    <label className={'_lb'} htmlFor={'items'}>
-                        <p>Items do plugin:{items.toString()}</p>
-                        <textarea name="items" required={handleRequired(items)} placeholder={'Crates: sistema personalizado...'} onChange={(e) => handleItems(e.target.value)} cols={30} rows={4}></textarea>
-                    </label>
-
-                    <label className={'_lb'} htmlFor={'descriptionItems'}>
-                        <p>Items detalhados:{descriptionItems.toString()}</p>
-                        <textarea name="descriptionItems" required={handleRequired(descriptionItems)} placeholder={'**Crates** \n - Sistema personalizado...'} onChange={(e) => handleDescriptionItems(e.target.value)} cols={30} rows={5}></textarea>
-                    </label>
-                </div>
-
-                <div className={'_area2 col-span-2'}>
-                    <fieldset style={{'--sizeCheckbox': '100px'} as CSSProperties} className={'_tv grid w-full justify-evenly gap-x-2 gap-y-3 p-3'}>
-                        <legend>Tags do plugin: {tags.toString()}</legend>
-                        {pluginTags.map((it, i) =>
-                            <label className={'relative full flex-center cursor-pointer select-none rounded-lg bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40 pt-0.5'} key={i}>
-                                <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} required={handleRequired(tags)} type="checkbox" name={it} value={it} onChange={() => handleTags(it)} checked={tags.includes(it)}/>
-                                <p>{it}</p>
-                            </label>
-                        )}
-                    </fieldset>
-
-                    <label className={'_lb'} htmlFor={'tags'}>
-                        <p>Outras tags do plugin:</p>
-                        <textarea name="tags" placeholder={'Outras...'} onChange={(e) => handleOtherTags(e.target.value)} cols={25} rows={3}></textarea>
-                    </label>
-                </div>
-
-                <fieldset style={{'--sizeCheckbox': ' 75px'} as CSSProperties} className={'_tv grid w-full justify-evenly gap-x-2 gap-y-3 p-3 col-span-2 lg:col-span-1'}>
-                    <legend>Versões testadas: {testedVersions.toString()}</legend>
-                    {versionList.map((it, i) =>
-                        <label className={'relative full flex-center cursor-pointer select-none rounded-lg bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40'} key={i}>
-                            <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} required={handleRequired(testedVersions)} type="checkbox" name={it} value={it} onChange={() => handleTestedVersions(it)} checked={testedVersions.includes(it)}/>
-                            <p>{it}</p>
-                        </label>
-                    )}
-                </fieldset>
-
-                <div className={'_area2 col-span-2'}>
-                    <label className={'_lb'} htmlFor={'repository'}>
-                        <p>Repositório do plugin:</p>
-                        <input type="text" name={'repository'} placeholder={'NotzScoreboard'} onChange={(e) => setRepository(e.target.value)}/>
-                        <Link className={'text-white/60'} href={`https://git.kaato.dev/${repository}`}>
-                            https://git.kaato.dev/
-                            <span className={'text-blue-100'}>{repository.length === 0 ? '(NotzScoreboard)' : repository}</span>
-                        </Link>
-                    </label>
-
-                    <label className={'_lb'} htmlFor={'dependencies'}>
-                        <p>Dependências do plugin:{dependencies.toString()}</p>
-                        <textarea name="dependencies" placeholder={'PlaceholderAPI...'} onChange={(e) => handleDependencies(e.target.value)} cols={20} rows={3}></textarea>
-                    </label>
-                </div>
-
-                <div className={'_area2 col-span-2'}>
-                    <label className={'_lb px-4'} htmlFor={'imageLink'}>
-                        <p>Imagem ícone do plugin:</p>
-                        <input className={'w-full'} type="text" name={'imageLink'} placeholder={'Link da imagem'} onChange={(e) => setImageLink(e.target.value)}/>
-                        {/*<div className={`relative w-fit ${backImageLink.length === 0 ? '' : 'h-12'}`}>*/}
-                        {/*    <Image fill className={'object-contain'} src={imageLink} alt={''}/>*/}
-                        {/*</div>*/}
-                    </label>
-
-                    <label className={'_lb px-4'} htmlFor={'backImageLink'}>
-                        <p>Imagem background do plugin:</p>
-                        <input className={'w-full'} type="text" name={'backImageLink'} placeholder={'Link da imagem do background'} onChange={(e) => setBackImageLink(e.target.value)}/>
-                        {/*<div className={`relative w-fit ${backImageLink.length === 0 ? '' : 'h-12'}`}>*/}
-                        {/*    <Image fill className={'object-contain'} src={backImageLink} alt={''}/>*/}
-                        {/*</div>*/}
-                    </label>
-                </div>
-
-                <div className={'_area2 col-span-2'}>
-                    <label className={'_lb'} htmlFor={'version'}>
-                        <p>Versão atual do plugin:</p>
-                        <input type="text" name={'version'} placeholder={'v3.2'} onChange={(e) => setVersion(e.target.value)}/>
-                    </label>
-
-                    <label className={'_lb px-4'} htmlFor={'backImageLink'}>
-                        <p>Versões:</p>
-                        <input className={'w-full'} type="text" name={'backImageLink'} placeholder={'Link da imagem do background'} onChange={(e) => setBackImageLink(e.target.value)}/>
-                    </label>
-
-                    {/*TODO*/}
-                </div>
-
-                <label className={'_lb'} htmlFor={'placeholders'}>
-                    <p>Placeholders do plugin:{placeholders.toString()}</p>
-                    <textarea name="placeholders" required={handleRequired(placeholders)} placeholder={'{displayname}: nick do player...'} onChange={(e) => handlePlaceholders(e.target.value)} cols={30} rows={4}></textarea>
+    return (<div className={'_create-plugin containerer'}>
+        <div className={'_form flex flex-col justify-center items-center md:grid grid-cols-2 xl:grid-cols-3 grid-flow-dense gap-10 p-5 rounded-4xl'}>
+            <div className={'_area'}>
+                <label className={'_lb'}>
+                    <p>Nome do plugin:</p>
+                    <input type="text" name={'name'} required={handleRequired(name)} placeholder={'NotzPlugin'} onChange={(e) => setName(e.target.value)}/>
                 </label>
 
-                <div className={'_area'}>
-                    <label className={'_lb'} htmlFor={'permissions'}>
-                        <fieldset className={'_tv grid w-full justify-evenly gap-x-2 gap-y-3 p-3'}>
-                            <legend>Permissões do plugin: {tags.toString()}</legend>
-                            <input type="text" name={'permissions1'} placeholder={'notzcrates.admin'}/>
-                            <input type="text" name={'permissions2'} placeholder={'Permissão de admin'}/>
+                <label className={'_lb'}>
+                    <p>Descrição do plugin:</p>
+                    <input type="text" name={'description'} required={handleRequired(description)} placeholder={'Plugin de rankup'} onChange={(e) => setDescription(e.target.value)}/>
+                </label>
+            </div>
 
-                            {[true, false].map((it, i) =>
-                                <label className={'relative full flex-center cursor-pointer select-none rounded-lg bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40 pt-0.5'} key={i}>
-                                    <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} required={handleRequired(tags)} type="radio" value={it.toString()} onChange={(e) => handlePermission(it, 3)} checked={permission.default == it}/>
-                                    <p>{it}</p>
-                                </label>
-                            )}
-                        </fieldset>
+            <div className={'_area'}>
+                <label className={'flex-center max-2xl:flex-col gap-2'}>
+                    <p>Versão do servidor:</p>
+                    {/*<input type="reset" name={'serverVersion'} placeholder={'1.8 - 1.21'} onChange={(e) => setServerVersion(e.target.value)}/>*/}
+                    <select className={'_select'} name="serverVersion" onChange={(e) => setServerVersion(e.target.value)}>
+                        {versionList.map((it, i) => <option key={i} value={it}>{it}</option>)}
+                    </select>
+                </label>
 
+                <label className={'flex-center flex-col gap-2'}>
+                    <p>Status desenvolvimento:</p>
+                    <select className={'_select'} name="status" onChange={(e) => setPluginStatus(e.target.value as unknown as 1 | 2 | 3 | 4)}>
+                        {statuses.map((it, i) => <option key={i} value={i + 1}>{it}</option>)}
+                    </select>
+                </label>
+            </div>
+
+            <div className={'_area2 col-span-1 md:col-span-2 xl:col-span-3'}>
+                <label className={'_lb'}>
+                    <p>Items do plugin:</p>
+                    <textarea name="items" required={handleRequired(items)} placeholder={'Crates: sistema personalizado...'} onChange={(e) => handleItems(e.target.value)} cols={30} rows={4}></textarea>
+                </label>
+
+                <label className={'_lb'}>
+                    <p>Items detalhados:</p>
+                    <textarea name="descriptionItems" required={handleRequired(descriptionItems)} placeholder={'**Crates** \n - Sistema personalizado...'} onChange={(e) => handleDescriptionItems(e.target.value)} cols={30} rows={5}></textarea>
+                </label>
+            </div>
+
+            <div className={'_area2 col-span-2'}>
+                <fieldset style={{'--sizeCheckbox': '100px'} as CSSProperties} className={'_tv grid w-full justify-evenly gap-x-2 gap-y-3 p-3'}>
+                    <legend>Tags do plugin</legend>
+                    {pluginTags.map((it, i) => <label className={'relative full flex-center py-1 cursor-pointer select-none rounded-lg bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40 pt-0.5'} key={i}>
+                        <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} required={handleRequired(tags)} type="checkbox" name={it} value={it} onChange={() => handleTags(it)} checked={tags.includes(it)}/>
+                        <p>{it}</p>
+                    </label>)}
+                </fieldset>
+
+                <label className={'_lb'}>
+                    <p>Outras tags do plugin:</p>
+                    <textarea name="tags" placeholder={'Outras...'} onChange={(e) => handleOtherTags(e.target.value)} cols={25} rows={3}></textarea>
+                </label>
+            </div>
+
+            <fieldset style={{'--sizeCheckbox': ' 75px'} as CSSProperties} className={'_tv grid w-full justify-evenly gap-x-2 gap-y-3 p-3 col-span-2 lg:col-span-1'}>
+                <legend>Versões testadas</legend>
+                {versionList.map((it, i) => <label className={'relative full flex-center py-1 cursor-pointer select-none rounded-lg bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40'} key={i}>
+                    <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} required={handleRequired(testedVersions)} type="checkbox" name={it} value={it} onChange={() => handleTestedVersions(it)} checked={testedVersions.includes(it)}/>
+                    <p>{it}</p>
+                </label>)}
+            </fieldset>
+
+            <div className={'_area'}>
+                <label className={'_lb'}>
+                    <p>Repositório do plugin:</p>
+                    <input type="text" name={'repository'} placeholder={'NotzScoreboard'} onChange={(e) => setRepository(e.target.value)}/>
+                    <Link className={'text-white/60'} href={`https://git.kaato.dev/${repository}`}>
+                        https://git.kaato.dev/
+                        <span className={'text-blue-100'}>{repository.length === 0 ? '(NotzScoreboard)' : repository}</span>
+                    </Link>
+                </label>
+
+                <label className={'_lb'}>
+                    <p>Dependências do plugin:</p>
+                    <textarea name="dependencies" placeholder={'PlaceholderAPI...'} onChange={(e) => handleDependencies(e.target.value)} cols={20} rows={3}></textarea>
+                </label>
+            </div>
+
+            <div className={'_area'}>
+                <label className={'_lb px-4'}>
+                    <p>Imagem ícone do plugin:</p>
+                    <input className={'w-full'} type="text" name={'imageLink'} placeholder={'Link da imagem'} onChange={(e) => setImageLink(e.target.value)}/>
+                    {/*<div className={`relative w-fit ${backImageLink.length === 0 ? '' : 'h-12'}`}>*/}
+                    {/*    <Image fill className={'object-contain'} src={imageLink} alt={''}/>*/}
+                    {/*</div>*/}
+                </label>
+
+                <label className={'_lb px-4'}>
+                    <p>Imagem background do plugin:</p>
+                    <input className={'w-full'} type="text" name={'backImageLink'} placeholder={'Link da imagem do background'} onChange={(e) => setBackImageLink(e.target.value)}/>
+                    {/*<div className={`relative w-fit ${backImageLink.length === 0 ? '' : 'h-12'}`}>*/}
+                    {/*    <Image fill className={'object-contain'} src={backImageLink} alt={''}/>*/}
+                    {/*</div>*/}
+                </label>
+            </div>
+
+            <form className={`_area col-span-2 ${versions.length === 0 ? 'row-span-1' : 'row-span-2'}`} onSubmit={(e) => handleVersions(e)}>
+                <label className={'_lb'}>
+                    <p>Versão atual do plugin:</p>
+                    <input type="text" name={'version'} placeholder={'v3.2'} onChange={(e) => setVersion(e.target.value)}/>
+                </label>
+
+                <fieldset className={'flex flex-col gap-3 pb-3 px-6 rounded-2xl shadow-[var(--boxs4)]'}>
+                    <legend>Versões do plugin</legend>
+                    <label className={'_lb !flex-row gap-1'}>
+                        <p>Versão:</p>
+                        <input type="text" name={'version'} placeholder={'v1.0'}/>
                     </label>
+                    <label className={'_lb'}>
+                        <p className={'self-start ps-2'}>Changelog:</p>
+                        <textarea name={'changelog'} placeholder={'Adicionado...'} cols={50} rows={6}></textarea>
+                    </label>
+                </fieldset>
 
-                    <button>Adicionar permissão</button>
+                <button className={'cursor-pointer bg-blue-500/25 hover:bg-blue-600/50 transition-colors shadow-[var(--boxs2)] p-1 px-3 rounded-xl'}>Adicionar versão
+                </button>
 
-                    {permissions.map((it, i) =>
-                        <div key={i}>
-                            <p>Permissão: {it.permission}</p>
-                            <p>Descrição: {it.description}</p>
-                            <p>Padrão: {it.default ? 'Sim' : 'Não'}</p>
+                <div className={`${versions.length === 0 ? 'hidden' : 'flex'} flex-col full gap-4 shadow-[var(--boxs1)] p-3 px-6 rounded-2xl`}>
+                    {versions.map((it, i) => <div className={'flex flex-col gap-1'} key={i}>
+                        <div className={'flex justify-between'}>
+                            <div className={'flex-center w-fit gap-1'}>
+                                <p className={'w-fit break-all line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>{it.version}</p>
+                                <div className={'relative h-4.5 aspect-square bg-gray-400/15 cursor-pointer rounded-md'} onClick={() => removePluginVersion(it)}>
+                                    <Image className={'object-contain opacity-60'} fill src={'/google/close.svg'} alt={'Remover versão'}></Image>
+                                </div>
+                            </div>
                         </div>
-                    )}
+                        <li className={'wrap-break-word ps-3 pe-2 w-full'}>
+                            {it.changelog.map((vv, ii) => <span className={'ps-2'} key={ii}>{vv}
+                                <br/>
+                                        </span>)}
+                        </li>
+                    </div>)}
                 </div>
-
-
-                {/*commands*/}
-                {/*permissions*/}
             </form>
 
-            <button onClick={createPlugin}>Criar plugin</button>
+            <div className={`_area col-span-2 ${versions.length === 0 ? 'row-span-1' : 'row-span-2'}`}>
+                <form className={'full flex flex-col justify-evenly items-center gap-5'} onSubmit={(e) => handleCommands(e)}>
+                    <fieldset className={'min-w-fit w-3/5 flex flex-col pb-3 px-6 rounded-2xl shadow-[var(--boxs4)]'}>
+                        <legend>Comandos do plugin</legend>
+                        <label className={'_lb py-1! full'}>
+                            <p>Comando:</p>
+                            <input className={'w-full'} type="text" name={'command'} placeholder={'notzcrates'}/>
+                        </label>
+                        <label className={'_lb py-1!'}>
+                            <p>Descrição:</p>
+                            <input className={'w-full'} type="text" name={'description'} placeholder={'Acesso ao menu do plugin.'}/>
+                        </label>
+                        <label className={'_lb py-1!'}>
+                            <p>Aliases:</p>
+                            <input className={'w-full'} type="text" name="aliases" placeholder={'notzcrate, nc...'}></input>
+                        </label>
+                    </fieldset>
+
+                    <button className={'cursor-pointer bg-blue-500/25 hover:bg-blue-600/50 transition-colors shadow-[var(--boxs2)] p-1 px-3 rounded-xl'}>Adicionar comando</button>
+                </form>
+
+                <div className={`${commands.length === 0 ? 'hidden' : 'flex'} flex-col full gap-6 shadow-[var(--boxs4)] bg-[var(--color5light1)] p-3 px-6 rounded-2xl`}>
+                    {commands.map((it, i) =>
+                        <div className={'flex flex-col gap-1.5'} key={i}>
+                            <div className={'flex justify-between'}>
+                                <div className={'flex-center w-fit gap-2'}>
+                                    <p className={'flex gap-2'}>
+                                        <span className={'w-fit line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>{`/${it.command}`}</span>
+                                        <span>{'-'}</span>
+                                        <span className={'line-clamp-1'}>{it.description}</span>
+                                    </p>
+                                    <div className={'relative h-4.5 aspect-square bg-gray-400/15 cursor-pointer rounded-md'} onClick={() => removeCommand(it)}>
+                                        <Image className={'object-contain opacity-60'} fill src={'/google/close.svg'} alt={'Remover comando'}></Image>
+                                    </div>
+                                </div>
+                                <div className={'w-fit break-all line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>
+                                    {it.aliases.join(', ')}
+                                </div>
+                            </div>
+
+                            <ul className={'ps-8'}>
+                                <div className={'flex flex-col gap-1.5'}>
+                                    {it.subCommands.filter((its) => its.specialName == null || its.specialName.length === 0).map((its, is, ar) => <div key={is}>
+                                        <li className={'relative w-full list-disc sflex wrap-break-word pe-2'} key={is}>
+                                            <div className={'libtn group'} onClick={() => removeSubCommand(it, its)}>
+                                                <Image className={'object-contain opacity-0 group-hover:opacity-100'} fill src={'/google/close.svg'} alt={'Remover subcomando'}></Image>
+                                            </div>
+                                            <p className={'flex gap-2'}>
+                                                <span className={'w-fit line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>{its.sub}</span>
+                                                <span>{'-'}</span>
+                                                <span className={'line-clamp-1'}>{its.description}</span>
+                                            </p>
+                                        </li>
+                                    </div>)}
+
+                                    <form autoComplete={'off'} onSubmit={(e) => handleSubcommands2(i, e, false)}>
+                                        <li className={'list-disc rounded-lg shadow-[var(--boxs2)]'}>
+                                            <div className={'flex justify-between items-center'}>
+                                                <p className={'flex flex-1 gap-2'}><span className={'w-fit max-w-24 line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>
+                                                        <input className={'min-w-10 w-full max-w-20'} type="text" name={'sub'} placeholder={'players'}/>
+                                            </span>
+                                                    <span>{'-'}</span>
+                                                    <span className={'w-fit'}>
+                                                <input className={'min-w-10 w-full lg:w-60 max-w-60'} type="text" name={'description'} placeholder={'Lista todos os players no...'}/>                                            
+                                            </span>
+                                                </p>
+                                                <button className={'w-fit bg-wg py-0.5 px-3 md:px-5 cursor-pointer rounded-r-lg border-l-2 border-blue-900/50 bg-blue-200/3'}>Adicionar</button>
+                                            </div>
+                                        </li>
+                                    </form>
+
+                                    {it.subCommands.filter((its) => !!its.specialName && its.specialName.length > 0).map((its, is, ar) =>
+                                        <div className={'flex flex-col gap-1.5'} key={is}>
+                                            {(is == 0 || its.specialName != ar[is - 1].specialName) && <li className={'list-disc wrap-break-word pe-2'}>
+                                                <p className={'w-fit line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-1'}>
+                                                    <span className={'text-blue-500'}>{'<'}</span>
+                                                    <span>{its.specialName}</span>
+                                                    <span className={'text-blue-500'}>{'>'}</span>
+                                                </p>
+                                            </li>}
+                                            <li className={'relative list-[circle] wrap-break-word ms-6 pe-6 has-[.libtn:hover]:flex'}>
+                                                <div className={'libtn group'} onClick={() => removeSubCommand(it, its)}>
+                                                    <Image className={'object-contain opacity-0 group-hover:opacity-100'} fill src={'/google/close.svg'} alt={'Remover subcomando'}></Image>
+                                                </div>
+                                                <p className={'flex gap-2'}>
+                                                    <span className={'w-fitpsis line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>{its.sub}</span>
+                                                    <span>{'-'}</span>
+                                                    <span className={'line-clamp-1'}>{its.description}</span>
+                                                </p>
+                                            </li>
+                                            {ar.length - 1 == is && <form autoComplete={'off'} onSubmit={(e) => handleSubcommands2(i, e, true, its.specialName)}>
+                                                <li className={'list-[circle] ms-6 rounded-lg shadow-[var(--boxs2)]'}>
+                                                    <div className={'flex justify-between items-center'}>
+                                                        <p className={'flex flex-1 gap-2'}>
+                                                            <span className={'w-fit max-w-24 line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>
+                                                                <input className={'min-w-10 full max-w-20'} type="text" name={'sub'} placeholder={'addplayer'}/>
+                                                            </span>
+                                                            <span>{'-'}</span>
+                                                            <span className={'w-fit'}>
+                                                                <input className={'min-w-10 w-full lg:w-60 max-w-60'} type="text" name={'description'} placeholder={'Adiciona um player ao...'}/>
+                                                            </span>
+                                                        </p>
+                                                        <button className={'w-fit bg-wg py-0.5 px-3 md:px-5 cursor-pointer rounded-r-lg border-l-2 border-blue-900/50 bg-blue-200/3'}>Adicionar</button>
+                                                    </div>
+                                                </li>
+                                            </form>}
+                                        </div>)}
+
+                                    <form autoComplete={'off'} onSubmit={(e) => handleSubcommands2(i, e, true)}>
+                                        <div className={'flex flex-col gap-1.5'}>
+
+                                            <li className={'list-disc pe-2'}>
+                                                <p className={'w-fit line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-1'}>
+                                                    <span className={'text-blue-500 select-none'}>{'<'}</span>
+                                                    <input className={'w-21'} type="text" name={'specialName'} placeholder={'scoreboard'}/>
+                                                    <span className={'text-blue-500 select-none'}>{'>'}</span>
+                                                </p>
+                                            </li>
+                                            <li className={'list-[circle] ms-6 rounded-lg shadow-[var(--boxs2)]'}>
+                                                <div className={'flex justify-between items-center'}>
+                                                    <p className={'flex flex-1 gap-2'}>
+                                            <span className={'w-fit max-w-24 line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>
+                                                <input className={'min-w-10 w-full max-w-20'} type="text" name={'sub'} placeholder={'remplayer'}/>
+                                            </span>
+                                                        <span>{'-'}</span>
+                                                        <span className={'w-fit'}>
+                                                <input className={'min-w-10 w-full lg:w-60 max-w-60'} type="text" name={'description'} placeholder={'Remove um player do...'}/>                                            
+                                            </span>
+                                                    </p>
+                                                    <button className={'w-fit bg-wg py-0.5 px-3 md:px-5 cursor-pointer rounded-r-lg border-l-2 border-blue-900/50 bg-blue-200/3'}>Adicionar</button>
+                                                </div>
+                                            </li>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ul>
+                        </div>)}
+                </div>
+            </div>
+
+            <form className={`_area ${permissions.length === 0 ? 'row-span-1' : 'row-span-2'}`} onSubmit={(e) => handlePermissions(e)}>
+                <fieldset className={'flex flex-col gap-3 pb-3 px-6 rounded-2xl shadow-[var(--boxs4)]'}>
+                    <legend>Permissões do plugin</legend>
+                    <label className={'_lb'}>
+                        <p className={'text-sm self-start ps-2'}>Nome:</p>
+                        <input type="text" name={'permission'} placeholder={'notzcrates.admin'}/>
+                    </label>
+                    <label className={'_lb'}>
+                        <p className={'text-sm self-start ps-2'}>Descrição:</p>
+                        <input type="text" name={'description'} placeholder={'Permissão de admin'}/>
+                    </label>
+
+                    <div className={'w-full flex items-center text-[0.95rem] px-2'}>
+                        Padrão:
+                        <div className={'w-full flex flex-1 justify-evenly text-base ps-1'}>
+                            {[true, false].map((it, i) => <label className={'relative w-fit flex-center py-0.5 px-2 cursor-pointer select-none rounded-xl bg-blue-300/10 has-checked:bg-blue-700/80 hover:bg-blue-500/40'} key={i}>
+                                <input className={'absolute opacity-0 w-0 h-0 cursor-pointer'} type="radio" name={'isDefault'} value={it.toString()}/>
+                                <p>{it.toString()}</p>
+                            </label>)}
+                        </div>
+                    </div>
+                </fieldset>
+
+                <button className={'cursor-pointer bg-blue-500/25 hover:bg-blue-600/50 transition-colors shadow-[var(--boxs2)] p-1 px-3 rounded-xl'}>Adicionar permissão</button>
+
+                <div className={`${permissions.length === 0 ? 'hidden' : 'flex'} flex-col full gap-4 shadow-[var(--boxs1)] p-3 px-6 rounded-2xl`}>
+                    {permissions.map((it, i) => <div className={'flex flex-col gap-1'} key={i}>
+                        <div className={'flex justify-between'}>
+                            <div className={'flex-center w-fit gap-1'}>
+                                <p className={'w-fit text-ellipsis break-all line-clamp-1 bg-[var(--color6light1)] rounded-lg shadow-[var(--boxs3)] px-2'}>{it.permission}</p>
+                                <div className={'relative h-4.5 aspect-square bg-gray-400/15 cursor-pointer rounded-md'} onClick={() => removePermission(it)}>
+                                    <Image className={'object-contain opacity-60'} fill src={'/google/close.svg'} alt={'Remover permissão'}></Image>
+                                </div>
+                            </div>
+                            <p className={`w-fit flex items-center text-sm ${it.isDefault ? 'bg-green-400/30' : 'bg-red-400/30'} rounded-lg shadow-[var(--boxs3)] px-2`}>{it.isDefault ? 'Default' : 'Not default'}</p>
+                        </div>
+                        <li className={'wrap-break-word ps-3 pe-2 w-full'}>
+                            {it.description}
+                        </li>
+                    </div>)}
+                </div>
+            </form>
+
+            <label className={'_lb'}>
+                <p>Placeholders do plugin:</p>
+                <textarea name="placeholders" placeholder={'{displayname}: nick do player...'} onChange={(e) => handlePlaceholders(e.target.value)} cols={30} rows={4}></textarea>
+            </label>
         </div>
-    );
+
+        <button onClick={createPlugin}>Criar plugin</button>
+    </div>);
 }

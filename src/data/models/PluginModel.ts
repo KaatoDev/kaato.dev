@@ -39,11 +39,24 @@ export interface PluginVersion {
 export interface PluginPermission {
     permission: string;
     description: string;
-    default: boolean;
+    isDefault: boolean;
+}
+
+export interface PluginCommand {
+    command: string;
+    description: string;
+    aliases: string[];
+    subCommands: PluginSubCommand[]
+}
+
+export interface PluginSubCommand {
+    sub: string;
+    description: string;
+    specialName?: string;
 }
 
 export interface PluginModel {
-    versions: PluginVersion
+    versions: PluginVersion[]
     status: 1 | 2 | 3 | 4
     name: string
     description: string
@@ -52,7 +65,7 @@ export interface PluginModel {
     items: string[]
     testedVersions: string[]
     tags: string[]
-    commands?: string[]
+    commands?: PluginCommand[]
     repository?: string
     image?: string
     imageBack?: string
@@ -62,22 +75,22 @@ export interface PluginModel {
     placeholders?: string[]
 }
 
-export function createPlugin(versions: PluginVersion,
-                             status: 1 | 2 | 3 | 4,
-                             name: string,
-                             description: string,
-                             serverVersion: string | number,
-                             items: string[],
-                             testedVersions: string[],
-                             tags: string[],
-                             commands?: string[],
-                             repository?: string | null,
-                             image?: string | null,
-                             imageBack?: string | null,
-                             dependencies?: string | null,
-                             permissions?: PluginPermission[] | null,
-                             descriptionItems?: string[] | null,
-                             placeholders?: string[] | null): PluginModel {
+export function createPluginModel(versions: PluginVersion[],
+                                  status: 1 | 2 | 3 | 4,
+                                  name: string,
+                                  description: string,
+                                  serverVersion: string | number,
+                                  items: string[],
+                                  testedVersions: string[],
+                                  tags: string[],
+                                  commands?: PluginCommand[] | null,
+                                  repository?: string | null,
+                                  image?: string | null,
+                                  imageBack?: string | null,
+                                  dependencies?: string | null,
+                                  permissions?: PluginPermission[] | null,
+                                  descriptionItems?: string[] | null,
+                                  placeholders?: string[] | null): PluginModel {
     const plugin: PluginModel = {
         versions,
         status,
@@ -90,14 +103,14 @@ export function createPlugin(versions: PluginVersion,
         serverType: 'spigot'
     }
 
-    if (commands) plugin.commands = commands
-    if (repository) plugin.repository = repository
-    if (image) plugin.image = image
-    if (imageBack) plugin.imageBack = imageBack
-    if (dependencies) plugin.dependencies = dependencies
-    if (permissions) plugin.permissions = permissions
-    if (descriptionItems) plugin.descriptionItems = descriptionItems
-    if (placeholders) plugin.placeholders = placeholders
+    if (!!commands && commands.length > 1) plugin.commands = commands
+    if (!!repository && repository?.length > 1) plugin.repository = repository
+    if (!!image && image?.length > 1) plugin.image = image
+    if (!!imageBack && imageBack?.length > 1) plugin.imageBack = imageBack
+    if (!!dependencies && dependencies?.length > 1) plugin.dependencies = dependencies
+    if (!!permissions && permissions?.length > 1) plugin.permissions = permissions
+    if (!!descriptionItems && descriptionItems?.length > 1) plugin.descriptionItems = descriptionItems
+    if (!!placeholders && placeholders?.length > 1) plugin.placeholders = placeholders
 
     return plugin
 }
