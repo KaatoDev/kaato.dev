@@ -57,10 +57,10 @@ export interface PluginSubCommand {
 
 export interface PluginModel {
     versions: PluginVersion[]
+    version: string 
     status: 1 | 2 | 3 | 4
     name: string
     description: string
-    serverVersion: string | number
     serverType: string
     items: string[]
     testedVersions: string[]
@@ -69,7 +69,7 @@ export interface PluginModel {
     repository?: string
     image?: string
     imageBack?: string
-    dependencies?: string
+    dependencies?: string[]
     permissions?: PluginPermission[]
     descriptionItems?: string[]
     placeholders?: string[]
@@ -79,7 +79,7 @@ export function createPluginModel(versions: PluginVersion[],
                                   status: 1 | 2 | 3 | 4,
                                   name: string,
                                   description: string,
-                                  serverVersion: string | number,
+                                  version: string,
                                   items: string[],
                                   testedVersions: string[],
                                   tags: string[],
@@ -87,7 +87,7 @@ export function createPluginModel(versions: PluginVersion[],
                                   repository?: string | null,
                                   image?: string | null,
                                   imageBack?: string | null,
-                                  dependencies?: string | null,
+                                  dependencies?: string[] | null,
                                   permissions?: PluginPermission[] | null,
                                   descriptionItems?: string[] | null,
                                   placeholders?: string[] | null): PluginModel {
@@ -96,7 +96,7 @@ export function createPluginModel(versions: PluginVersion[],
         status,
         name,
         description,
-        serverVersion,
+        version,
         items,
         testedVersions,
         tags,

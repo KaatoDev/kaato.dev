@@ -17,7 +17,7 @@
     "repository": "NotzScoreboardV3",
     "image": "/images/NotzScoreboard2.png",
     "imageBack": "/images/NotzScoreboard1.png",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -146,7 +146,7 @@
       {
         "permission": "admin",
         "description": "Habilita o player a utilizar o comando de admin /notzsb.",
-        "default": false
+        "isdefault": false
       }
     ],
     "descriptionItems": [
@@ -246,7 +246,7 @@
       {
         "permission": "admin",
         "description": "Habilita o player a utilizar o comando de admin /nmb.",
-        "default": false
+        "isdefault": false
       }
     ],
     "versions": [
@@ -346,7 +346,7 @@
       {
         "permission": "admin",
         "description": "Habilita o player a utilizar o comando de admin /nw.",
-        "default": false
+        "isdefault": false
       }
     ],
     "versions": [
@@ -475,12 +475,12 @@
       {
         "permission": "admin",
         "description": "Acesso aos comandos e funções de admin.",
-        "default": false
+        "isdefault": false
       },
       {
         "permission": "viewadmin",
         "description": "Acesso aos comandos de ver o inventário de keys e rewards dos players.",
-        "default": false
+        "isdefault": false
       }
     ],
     "versions": [
@@ -542,7 +542,7 @@
       {
         "permission": "admin",
         "description": "Habilita o player a utilizar o comando de admin /nmb.",
-        "default": false
+        "isdefault": false
       }
     ],
     "versions": [
@@ -670,7 +670,7 @@
       {
         "permission": "admin",
         "description": "Habilita o player a utilizar o comando de admin /nw.",
-        "default": false
+        "isdefault": false
       }
     ],
     "versions": [
@@ -765,12 +765,12 @@
           {
             "permission": "admin",
             "description": "Acesso aos comandos e funções de admin.",
-            "default": false
+            "isdefault": false
           },
           {
             "permission": "viewadmin",
             "description": "Acesso aos comandos de ver o inventário de keys e rewards dos players.",
-            "default": false
+            "isdefault": false
           }
         ],
         "versions": [
@@ -842,7 +842,7 @@
     "repository": "",
     "image": "/images/NotzMines2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -856,8 +856,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -874,7 +872,7 @@
     "repository": "",
     "image": "/images/NotzVIP2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -888,8 +886,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -906,7 +902,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -920,8 +916,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -939,7 +933,7 @@
     "repository": "",
     "image": "/images/NotzFarm2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -953,8 +947,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -971,7 +963,7 @@
     "repository": "",
     "image": "/images/NotzSurvival2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -985,8 +977,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1003,7 +993,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1017,8 +1007,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1037,7 +1025,7 @@
     "repository": "",
     "image": "/images/NotzMines2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1051,8 +1039,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1069,7 +1055,7 @@
     "repository": "",
     "image": "/images/NotzVIP2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1083,8 +1069,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1101,7 +1085,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1115,8 +1099,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1134,7 +1116,7 @@
     "repository": "",
     "image": "/images/NotzFarm2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1148,8 +1130,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1166,7 +1146,7 @@
     "repository": "",
     "image": "/images/NotzSurvival2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1180,8 +1160,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1198,7 +1176,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1212,8 +1190,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1230,7 +1206,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1244,8 +1220,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1262,7 +1236,7 @@
     "repository": "",
     "image": "/images/NotzChat2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1276,8 +1250,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1298,7 +1270,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1312,8 +1284,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1331,7 +1301,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1345,8 +1315,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1366,7 +1334,7 @@
     "repository": "",
     "image": "/images/NotzTickets2.png",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1380,8 +1348,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1399,7 +1365,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1413,8 +1379,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1431,7 +1395,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1445,8 +1409,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1463,7 +1425,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1477,8 +1439,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1495,7 +1455,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1509,8 +1469,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1527,7 +1485,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1541,8 +1499,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1559,7 +1515,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1573,8 +1529,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1592,7 +1546,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1606,8 +1560,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1624,7 +1576,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1638,8 +1590,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1656,7 +1606,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1670,8 +1620,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1688,7 +1636,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1702,8 +1650,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1723,7 +1669,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1737,8 +1683,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1755,7 +1699,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1769,8 +1713,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1787,7 +1729,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1801,8 +1743,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1821,7 +1761,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1835,8 +1775,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1853,7 +1791,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1867,8 +1805,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1885,7 +1821,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1899,8 +1835,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1917,7 +1851,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1931,8 +1865,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1949,7 +1881,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       1.18
@@ -1963,8 +1895,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   },
   {
@@ -1982,7 +1912,7 @@
     "repository": "",
     "image": "",
     "imageBack": "",
-    "versionType": "Spigot",
+    "serverType": "Spigot",
     "testedVersions": [
       "1.8",
       "1.12"
@@ -1996,8 +1926,6 @@
         "changelog": ""
       }
     ],
-    "future": [],
-    "anterior": [],
     "dependencies": []
   }
 ]

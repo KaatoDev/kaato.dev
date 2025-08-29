@@ -1,14 +1,14 @@
 'use client'
 import "../../../components/styles/pages.scss";
 import {useLayoutEffect, useState} from "react";
-import {useUser} from "@/data/contexts/UserContext";
+import {useUserContext} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
 import Image from "next/image";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
 
 export default function Login() {
-    const {isSigned, isLoaded} = useUser()
+    const {isSigned, isLoaded} = useUserContext()
     const {login, loginGooglePopup} = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

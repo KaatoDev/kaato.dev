@@ -3,7 +3,7 @@
 import {createContext, ReactNode, useContext} from "react";
 import {User} from "@firebase/auth";
 import useAuth from "@/data/hooks/useAuth";
-import useUserDb from "@/data/hooks/useUserDb";
+import useUser from "@/data/hooks/useUser";
 import {SuperUserModel} from "@/data/models/SuperUserModel";
 
 interface UserContextType {
@@ -23,7 +23,7 @@ const UserContext = createContext<UserContextType>({
 export function UserProvider({children}: { children: ReactNode }) {
     const {user, isSigned, loading} = useAuth()
     const isLoaded = !loading
-    const {getSuperUser} = useUserDb()
+    const {getSuperUser} = useUser()
 
     async function isAdmin() {
         return !!user ? getSuperUser(user) : null
@@ -37,4 +37,4 @@ export function UserProvider({children}: { children: ReactNode }) {
     )
 }
 
-export const useUser = () => useContext(UserContext);
+export const useUserContext = () => useContext(UserContext);

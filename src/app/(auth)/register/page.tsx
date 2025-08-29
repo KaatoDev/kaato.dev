@@ -1,12 +1,12 @@
 'use client'
 import "../../../components/styles/pages.scss";
 import {useState} from "react";
-import {useUser} from "@/data/contexts/UserContext";
+import {useUserContext} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
 import Link from "next/link";
 
 export default function Login() {
-    const {user, isSigned} = useUser()
+    const {user, isSigned} = useUserContext()
     const {login, logout} = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')

@@ -56,7 +56,7 @@ async function getSuperUser(user: User) {
     } else return null
 }
 
-export default function useUserDb() {
+export default function useUser() {
 
     return {addUser, addSuperUser, getSuperUser}
 }

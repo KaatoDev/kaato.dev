@@ -1,15 +1,15 @@
 'use client'
 import "../../../components/styles/pages.scss";
 import {useLayoutEffect} from "react";
-import {useUser} from "@/data/contexts/UserContext";
+import {useUserContext} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
 import {useRouter} from "next/navigation";
-import useUserDb from "@/data/hooks/useUserDb";
+import useUser from "@/data/hooks/useUser";
 
 export default function Login() {
-    const {user, isSigned, isLoaded} = useUserDb()
+    const {user, isSigned, isLoaded} = useUser()
     const {logout} = useAuth()
-    const {addSuperUser} = useUserDb()
+    const {addSuperUser} = useUser()
     const router = useRouter()
 
     useLayoutEffect(() => {

@@ -1,5 +1,5 @@
 'use client'
-import "../../components/styles/adminPages.scss";
+import "../../components/styles/userPages.scss";
 import React, {useLayoutEffect, useState} from "react";
 import {useUserContext} from "@/data/contexts/UserContext";
 import {useRouter} from "next/navigation";
@@ -7,7 +7,7 @@ import Image from "next/image";
 import useAuth from "@/data/hooks/useAuth";
 import Link from "next/link";
 
-export default function AdminLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
+export default function UserLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
 
     const router = useRouter()
     const {isLoaded, isSigned, isAdmin, user} = useUserContext()
@@ -17,7 +17,6 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
     const navAdmin = new Map()
     navAdmin.set('Criar plugins', '/admin/create-plugin')
     navAdmin.set('Editar plugins', '/admin/edit-plugins')
-    navAdmin.set('Configurações', '/admin/configurations')
 
     useLayoutEffect(() => {
         if (isLoaded) {
@@ -68,14 +67,16 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
                         Deslogar
                     </button>
 
-                    <nav className={'w-full flex-center flex-col my-2 border-y border-gray-900/20'}>
-                        {[...navAdmin.entries()].map((it, i) =>
-                            <div className={`w-full ${i == 0 ? '' : 'border-t'} border-gray-800/15 shadow-[var(--boxs3)] hover:shadow-[var(--boxs1)] transition-all duration-200 ease-out`} key={i}>
-                                <Link className={'full flex-center py-2'} href={it[1]}>
-                                    {it[0]}
-                                </Link>
-                            </div>
-                        )}
+                    <nav className={'w-full my-2 border-y border-gray-900/20'}>
+                        <ul className={'flex-center flex-col'}>
+                            {navAdmin.entries().map((it, i) =>
+                                <li className={`w-full flex-center ${i == 0 ? '' : 'border-t'} border-gray-800/15 shadow-[var(--boxs3)] hover:shadow-[var(--boxs1)] transition-all duration-200 ease-out py-2`} key={i}>
+                                    <Link href={it[1]}>
+                                        {it[0]}
+                                    </Link>
+                                </li>
+                            )}
+                        </ul>
                     </nav>
                 </div>
             </div>
