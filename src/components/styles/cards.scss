@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+._siteCard {
+  ._card {
+    p {
+      @apply z-[2] absolute self-center px-3;
+      transition: translate .3s ease-in;
+    }
+
+    &:hover > ._cardText > p {
+      transition: translate .2s ease-out;
+    }
+  }
+}
+
+._pluginCard {
+}

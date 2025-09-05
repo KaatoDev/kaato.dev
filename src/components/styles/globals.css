@@ -3,6 +3,8 @@
 :root {
     --textcolor: #e9e9ea;
     --background: black;
+    --background1: linear-gradient(90deg, var(--color0dark1), var(--color0dark3), transparent 25% 75%, var(--color0dark3), var(--color0dark1)),
+    radial-gradient(circle, transparent 55%, var(--color0dark3), var(--color0dark1));
     /*/ / --background: #171717;*/
 
     --color1: #1c398e;
@@ -88,8 +90,7 @@ body {
         height: 100%;
         z-index: -1;
 
-        background: linear-gradient(90deg, var(--color0dark1), var(--color0dark3), transparent 25% 75%, var(--color0dark3), var(--color0dark1)),
-        radial-gradient(circle, transparent 55%, var(--color0dark3), var(--color0dark1));
+        background: var(--background1);
         border-radius: 4rem;
     }
 }

@@ -44,7 +44,7 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
         <div className={'relative _admin flex full'}>
             <div className={`opacity-0 ms-16 transition-all ${isClosed ? 'min-w-0 w-0 max-w-0 ease-in-out duration-500' : 'ease-in min-w-32 max-w-64 duration-300'} h-full`}/>
             <div className={`fixed transition-all duration-400 ${isClosed ? 'rounded-tr-2xl min-w-10 max-w-10 _menu-closed ease-in-out' : 'ease-in min-w-32 max-w-64 _menu-open rounded-tr-xl'} w-fit h-full flex flex-col border-r border-black/20 overflow-hidden`}>
-                <div className={'w-full'} onClick={closeMenu}>
+                <div className={'w-full cursor-pointer'} onClick={closeMenu}>
                     <div className={`relative h-10 aspect-square justify-self-end ${isClosed ? 'rotate-180 duration-400 ease-out' : 'duration-300 ease-in'} transition-all`}>
                         <Image className={'object-contain'} fill src={'/google/double_arrow_backward.svg'} alt={'Close menu arrow'}/>
                     </div>

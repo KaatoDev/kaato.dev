@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+._select {
+  ._selabel {
+    background-color: var(--color11);
+  }
+
+  ._dropSelect {
+    background-color: var(--color11);
+    transition: height .25s ease-in-out, border .1s ease-in-out 50ms;
+    interpolate-size: allow-keywords;
+    scrollbar-width: none;
+  }
+
+  &:has(input:checked) {
+    ._selabel {
+      background-color: var(--color10);
+    }
+
+    ._dropSelect {
+      transition: height .5s ease-in-out, border .1s ease-in-out 100ms;
+    }
+  }
+}

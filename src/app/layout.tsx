@@ -6,8 +6,31 @@ import ContextProvider from "@/data/contexts/Contexts";
 import {Header} from "@/components/Header";
 
 export const metadata: Metadata = {
-    title: "KaatoDev",
-    description: "Portifólio de <NAME>",
+    title: "KaaDev",
+    description: "Site criado com Next.js e Typescript",
+
+    openGraph: {
+        type: "website",
+        url: "https://kaato.dev/",
+        title: "KaaDev Portifólio",
+        description: "Site criado com Next.js e Typescript",
+        images: [
+            {
+                url: "HomePage.png",
+                width: 1200,
+                height: 630,
+                alt: "KaaDev Portifólio",
+            },
+        ],
+    },
+
+    twitter: {
+        card: "summary_large_image",
+        site: "https://kaato.dev/",
+        title: "KaaDev Portifólio",
+        description: "Site criado com Next.js e Typescript",
+        images: ["HomePage.png"],
+    },
 
     icons: {
         icon: 'Kaa2_multi.ico'
@@ -18,7 +41,7 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
     return (
         <html lang="pt-BR">
         <body className={'relative antialiased min-h-screen h-screen flex flex-col'}>
-        <div className={'fixed _background'}/>
+        <div id={'__superBackground'} className={'fixed _background'}/>
         <ContextProvider>
             <Header/>
             <main className={'flex-1'}>

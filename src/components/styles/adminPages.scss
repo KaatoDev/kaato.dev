@@ -32,29 +32,6 @@
     filter: drop-shadow(0 0 2px var(--color0dark1));
   }
 
-  ._select {
-    ._selabel {
-      background-color: var(--color11);
-    }
-
-    ._dropSelect {
-      background-color: var(--color11);
-      transition: height .25s ease-in-out, border .1s ease-in-out 50ms;
-      interpolate-size: allow-keywords;
-    }
-
-    &:has(input:checked) {
-      ._selabel {
-        background-color: var(--color10);
-      }
-
-      ._dropSelect {
-        transition: height .5s ease-in-out, border .1s ease-in-out 100ms;
-      }
-    }
-  }
-
-
   .libtn {
     @apply absolute inset-0 w-5 aspect-square rounded-lg opacity-50 translate-x-[-118%] translate-y-0.5 cursor-pointer;
     content: '';

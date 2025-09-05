@@ -1,4 +1,4 @@
-import {collection, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
+import {collection, deleteDoc, doc, getDoc, getDocs, setDoc, updateDoc} from "firebase/firestore";
 import {database} from "@/data/hooks/useFirestore";
 import {PluginModel} from "@/data/models/PluginModel";
 
@@ -24,6 +24,14 @@ async function getPlugin(name: string) {
             return plugin.data() as PluginModel
         })
     }
+}
+
+async function removePlugin(name: string) {
+    const pluginRef = doc(database, "plugins", name)
+    await deleteDoc(pluginRef).then(() => {
+        return true
+    })
+    return false
 }
 
 async function getAllPlugins() {
@@ -67,5 +75,5 @@ async function forMaintenance() {
 }
 
 export default function usePlugin() {
-    return {setPlugin, getPlugin, getAllPlugins, forMaintenance}
+    return {setPlugin, getPlugin, getAllPlugins, forMaintenance, removePlugin}
 }

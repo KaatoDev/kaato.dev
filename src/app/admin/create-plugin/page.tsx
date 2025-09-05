@@ -5,12 +5,13 @@ import Link from "next/link";
 import Image from "next/image";
 import usePlugin from "@/data/hooks/usePlugin";
 import {usePluginContext} from "@/data/contexts/PluginsContext";
+import {SelectDrop} from "@/components/SelectDrop";
 
 export default function CreatePlugin() {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [version, setVersion] = useState('')
-    const [pluginStatus, setPluginStatus] = useState<1 | 2 | 3 | 4>(4)
+    const [pluginStatus, setPluginStatus] = useState<string>('4')
     const [versions, setVersions] = useState<PluginVersion[]>([])
     const [permissions, setPermissions] = useState<PluginPermission[]>([])
     const [commands, setCommands] = useState<PluginCommand[]>([])
@@ -26,11 +27,27 @@ export default function CreatePlugin() {
     const [placeholders, setPlaceholders] = useState<string[]>([])
     const [createButtonText, setCreateButtonText] = useState('Criar plugin')
     const [waitPlugin, setWaitPlugin] = useState(false)
+    const [onRemovePlugin, setOnRemovePlugin] = useState(false)
     const seinput = useRef<HTMLInputElement>(null)
 
     const versionList = ['1.8', '1.9', '1.10', '1.11', '1.12', '1.13', '1.14', '1.15', '1.16', '1.17', '1.18', '1.19', '1.20', '1.21']
     const statuses = ['Disponível', 'Em desenvolvimento', 'Em planejamento', 'Pendente']
     const pluginTags = ['Essencial', 'Economia', 'RankUp', 'Prison', 'Factions', 'Minigames', 'Moderação', 'API']
+
+    function handleRemovePlugin() {
+        if (onRemovePlugin) {
+            setOnRemovePlugin(false)
+            if (!!onEditPlugin) {
+                removePlugin(onEditPlugin.name)
+                // handleCreateButtonText(`Plugin ${onEditPlugin.name} deletado!`)
+                setOnEditPlugin(null)
+                setPluginsNames([...plugins.map(it => it.name)])
+            }
+            return
+        }
+        setOnRemovePlugin(true)
+        updatePlugins()
+    }
 
     function handleVersions(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault()
@@ -137,7 +154,7 @@ export default function CreatePlugin() {
     }
 
 
-    const {setPlugin} = usePlugin()
+    const {setPlugin, removePlugin} = usePlugin()
 
     function createPlugin() {
         if (waitPlugin) return
@@ -153,17 +170,19 @@ export default function CreatePlugin() {
             return
         }
 
-        const p = createPluginModel(versions, pluginStatus, name, description, version, items, testedVersions, tags, commands, repository, imageLink, backImageLink, dependencies, permissions, descriptionItems, placeholders);
+        const p = createPluginModel(versions, pluginStatus as unknown as 1 | 2 | 3 | 4, name, description, version, items, testedVersions, tags, commands, repository, imageLink, backImageLink, dependencies, permissions, descriptionItems, placeholders);
 
         if (p != null) setPlugin(p).then(res => {
             window.scrollTo(0, 0)
             handleCreateButtonText(`Plugin '${p.name}' ${res ? 'editado' : 'criado'}!`)
+            setPluginsNames([...plugins.map(it => it.name)])
         })
         else {
             handleCreateButtonText('Plugin inválido!')
         }
 
         setOnEditPlugin(null)
+        updatePlugins()
     }
 
     async function handleCreateButtonText(text: string) {
@@ -195,15 +214,17 @@ export default function CreatePlugin() {
 
         await cleanText(createButtonText)
         await writeText(text)
+
         setTimeout(() => {
             cleanText(text)
             writeText('Criar plugin')
         }, 3000)
     }
 
+    const {plugins, updatePlugins} = usePluginContext()
     const [onEditPlugin, setOnEditPlugin] = useState<PluginModel | null>(null)
-    const plugins = usePluginContext()
-    const pluginsNames = plugins.map(it => it.name)
+    const [pluginsNames, setPluginsNames] = useState<string[]>([...plugins.map(it => it.name)])
+    setTimeout(() => setPluginsNames([...plugins.map(it => it.name)]), 100)
 
     function handlePlugins(pl: string) {
         setOnEditPlugin(plugins.find(it => it.name === pl) ?? null)
@@ -215,7 +236,7 @@ export default function CreatePlugin() {
             setName(pl.name)
             setDescription(pl.description)
             setVersion(pl.version)
-            setPluginStatus(pl.status)
+            setPluginStatus(pl.status as unknown as string)
             setVersions(pl.versions)
             setTestedVersions(pl.testedVersions)
             setTags(pl.tags)
@@ -232,7 +253,7 @@ export default function CreatePlugin() {
             setName('')
             setDescription('')
             setVersion('')
-            setPluginStatus(4)
+            setPluginStatus('4')
             setVersions([])
             setPermissions([])
             setCommands([])
@@ -252,11 +273,10 @@ export default function CreatePlugin() {
         <div className={'_create-plugin containerer'}>
             <div className={'full flex-center gap-3 py-3'}>
                 <p>Editar plugin:</p>
-                <select onChange={(e) => handlePlugins(e.target.value)}>
-                    <option value={'null'}>Novo plugin</option>
-                    {pluginsNames.map((it, i) => <option value={it} key={i}>{it}</option>)}
-                </select>
-                {onEditPlugin?.name ?? 'null'}
+                <SelectDrop className={'w-44 h-8.5'} list={pluginsNames} display={onEditPlugin?.name ?? 'Novo Plugin'} setValue={handlePlugins}/>
+                <div className={'relative h-7.5 aspect-square cursor-pointer rounded-full bg-red-400/40'} onClick={() => handleRemovePlugin()}>
+                    <Image fill className={'object-contain p-1'} src={'/google/delete.svg'} alt={'Deletar plugin'}/>
+                </div>
             </div>
 
             <div className={'_form flex flex-col justify-center items-center lg:grid grid-cols-2 xl:grid-cols-3 grid-flow-dense gap-10 p-5 rounded-4xl'}>
@@ -272,7 +292,7 @@ export default function CreatePlugin() {
                     </label>
                 </div>
 
-                <div className={'z-[1] _area max-xl:col-span-2'}>
+                <div className={'_area max-xl:col-span-2'}>
                     <label className={'_lb'}>
                         <p>Versão atual do plugin:</p>
                         <input type="text" name={'version'} value={version} required={handleRequired(version)} placeholder={'v3.2'} onChange={(e) => setVersion(e.target.value)}/>
@@ -280,24 +300,7 @@ export default function CreatePlugin() {
 
                     <div className={'full flex-center flex-col gap-2'}>
                         <p>Status desenvolvimento: {pluginStatus}</p>
-                        <div className={'relative group _select w-48 h-8 flex'}>
-                            <label className={'relative _selabel border border-black/5 full flex-center rounded-xl p-1 ps-2.5 gap-1 cursor-pointer select-none'}>
-                                <input ref={seinput} className={'absolute opacity-0 w-0 h-0 cursor-pointer'} type="checkbox"/>
-                                <p className={'full text-center'}>{statuses[pluginStatus - 1]}</p>
-                                <div className={'h-full top-0 right-0 aspect-square -rotate-90 group-has-[input:checked]:rotate-90 transition-all pointer-events-none'}>
-                                    <Image className={'object-contain'} fill src={'/google/arrow_backward.svg'} alt={'Abrir menu'}/>
-                                </div>
-                            </label>
-                            <ul className={`absolute _dropSelect top-full right-0 w-full mt-0.5 group-has-[input:checked]:border group-has-[input:checked]:border-y-2 border-black/12 group-has-[input:checked]:h-fit h-0 flex flex-col text-center rounded-2xl overflow-hidden`} onClick={(e) => {
-                                e.preventDefault()
-                                if (seinput.current) seinput.current.checked = false
-                                setPluginStatus((e.target as HTMLLIElement).value as unknown as 1 | 2 | 3 | 4)
-                            }}>
-                                {statuses.map((it, i) =>
-                                    <li className={'hover:bg-[var(--color10)] py-1 cursor-pointer last-of-type:border-none border-b border-black/12'} key={i} value={i + 1}>{it}</li>)
-                                }
-                            </ul>
-                        </div>
+                        <SelectDrop className={'w-48 h-8 flex'} refInput={seinput} list={statuses} display={statuses[(pluginStatus as unknown as number) - 1]} setValue={setPluginStatus}/>
                     </div>
                 </div>
 

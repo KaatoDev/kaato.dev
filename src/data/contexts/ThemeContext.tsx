@@ -1,10 +1,10 @@
 'use client'
 
-import {createContext} from "react";
+import {createContext, ReactNode} from "react";
 
 const ThemeContext = createContext('dark');
 
-export function ThemeProvider({children}: any) {
+export function ThemeProvider({children}: { children: ReactNode }) {
     return (
         <ThemeContext value={'light'}>
             {children}
