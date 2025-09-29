@@ -1,17 +1,76 @@
 @import "tailwindcss";
 
 ._siteCard {
+  &:has(._card:hover):not(:has(._cardAppear)) {
+    ._titleName {
+      @apply -translate-y-full;
+    }
+  }
+
+  ._titleName {
+    transition: all .3s ease-in;
+  }
+
+  ._open {
+    //transition: width 1s ease-in-out;
+
+    &:has(._cardAppear) {
+      @apply w-full max-w-none grid grid-cols-10 xl:grid-cols-11 rounded-4xl p-2 md:p-3 lg:p-4 xl:p-8 lg:py-6;
+    }
+  }
+
+  ._expText {
+    overflow: hidden;
+    display: none;
+    width: 100%;
+
+    ._expTitle {
+      box-shadow: var(--boxs3);
+    }
+  }
+
   ._card {
     p {
       @apply z-[2] absolute self-center px-3;
-      transition: translate .3s ease-in;
+      transition: all .3s ease-in;
     }
 
     &:hover > ._cardText > p {
-      transition: translate .2s ease-out;
+      transition: all .2s ease-out;
     }
   }
 }
 
 ._pluginCard {
+}
+
+@keyframes _cardSize {
+  0% {
+    width: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes _cardSize2 {
+  0% {
+    width: 100%;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0;
+  }
+  100% {
+    width: 0;
+  }
 }

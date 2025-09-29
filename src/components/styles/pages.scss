@@ -5,6 +5,11 @@
     -webkit-text-fill-color: transparent;
     -webkit-text-stroke: 3px white;
   }
+
+  ._text2 {
+    -webkit-text-fill-color: var(--color3light3);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, .95);
+  }
 }
 
 ._login {
@@ -32,11 +37,25 @@
           @apply text-sm ps-2;
         }
 
-
         input {
-          @apply bg-blue-200/10 px-2 py-1 text-ellipsis focus:outline-none focus:bg-blue-300/15;
+          @apply bg-blue-200/10 px-2 py-1 text-ellipsis focus:outline-none focus:bg-blue-300/15 rounded-lg;
         }
       }
     }
+  }
+}
+
+@keyframes bounceTec {
+  0% {
+    width: 0;
+  }
+  60% {
+    width: 7.4rem;
+  }
+  80% {
+    width: 6.7rem;
+  }
+  100% {
+    width: 7rem;
   }
 }

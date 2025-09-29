@@ -1,6 +1,8 @@
 'use client'
 import "../components/styles/pages.scss";
 import {useEffect, useLayoutEffect} from "react";
+import {Footer} from "@/components/Footer";
+import Image from "next/image";
 import {SiteCard} from "@/components/SiteCard";
 
 export default function Home() {
@@ -19,25 +21,54 @@ export default function Home() {
         window.scrollTo(0, 0)
     }, [])
 
+    const langFrameIcons = ['java, kotlin, nodejs, js, ts, php'.split(', '), 'html, css, scss, bootstrap, tailwind'.split(', '), 'react, nextjs, spring, laravel'.split(', '), 'mysql, sqlite, postgres, firebase'.split(', '), 'idea, clion, phpstorm, webstorm, vscode, visualstudio'.split(', ')]
+    const langFrameNames = ['Java, Kotlin, Node.js, JavaScript, TypeScript, PHP'.split(', '), 'HTML, CSS, SCSS, Bootstrap, Tailwind'.split(', '), 'React, Next.js, Spring Boot, Laravel'.split(', '), 'MySQL, SQLite, PostgreSQL, Firebase'.split(', '), 'IntelliJ, CLion, PhpStorm, WebStorm, VS Code, Visual Studio'.split(', '),]
+    const langFrameTitles = ['Linguagens e bibliotecas', '', 'Frameworks', 'Banco de dados', 'IDEs',]
+
+    const skillIconLoader = ({src}: { src: string }) => {
+        return `https://skillicons.dev/${src}`;
+    };
+
     return (
-        <div id={'__home'} className={'_animateHome _home _background full'}>
-            <div className={'full flex-center overflow-hidden'}>
-                <p className={'_text flex flex-col sm:flex-row mb-[5rem] font-bold text-9xl sm:text-[10rem] md:text-[14rem] lg:text-[18rem] xl:text-[22rem] select-none'}>
+        <div id={'__home'} className={'_animateHome _home _background full scroll-smooth'}>
+            <div className={'w-full h-[calc(100vh-6.5rem)] flex-center overflow-hidden'}>
+                <p className={'_text flex flex-col sm:flex-row mb-[5rem] font-bold text-9xl sm:text-[10rem] md:text-[12rem] lg:text-[16rem] xl:text-[20rem] select-none'}>
                     {['Kaa', 'Dev'].map((it, i) => (
                         <span key={i}>{it}</span>
                     ))}
                 </p>
             </div>
-            <div className={'z-50 bg-blue-700/10 full flex-center flex-col md:text-lg xl:text-xl overflow-hidden'}>
-                <SiteCard title={'Site portifólio'} description={'Este site foi feito com @@Next.js e @@TypeScript'}/>
-                <p>
-                    {'Futuramente haverá uma versão idêntica em '}
-                    <span className={'font-bold'}>PHP</span>
-                    {' puro e posteriormente com '}
-                    <span className={'font-bold'}>Laravel</span>
-                    {'.'}
-                </p>
+
+            <div className={'containerer bg-blue-700/10s w-full h-1/2 flex-center-col'}>
+                <p className={'_text2 font_bold text-8xl pb-8 select-none'}>Tecnologias</p>
+
+                {langFrameIcons.map((it, i) => (
+                    <div className={`pt-2 pb-5 flex-center-col shadow-[var(--boxs1)] ${i == 1 ? 'rounded-b-2xl rounded-sm px-6 md:px-8 xl:px-10 2xl:px-12' : 'rounded-t-2xl rounded-b-xl mt-6 px-12 xl:px-14 2xl:px-16 gap-2'} overflow-hidden`} key={i}>
+                        <p className={`drop-shadow-[0_2px_4px_white]/50 text-stone-200/95 font-bold text-xl rounded-xl ${i == 1 ? '' : 'px-2 py-1'}`}>{langFrameTitles[i]}</p>
+
+                        <div className={'gap-3 md:gap-8 xl:gap-10 2xl:gap-12 flex justify-between'} key={i}>
+                            {it.map((its, is) => (
+                                <div className={'group h-full flex shadow-[var(--boxs4)] hover:shadow-[var(--boxs3)] rounded-2xl transition-all duration-500 bg-blue-200/10 hover:bg-blue-200/15'} key={is}>
+                                    <div className={'relative h-16 aspect-square'} key={is}>
+                                        <Image loader={skillIconLoader} src={`icons?i=${its}`} className={'object-contain'} fill alt={langFrameNames[i][is]}/>
+                                    </div>
+                                    <div className={'w-0 group-hover:w-28 h-full group-hover:animate-[bounceTec_.5s_ease-in-out]s flex-center transition-all group-hover:duration-300 duration-500 overflow-hidden'}>
+                                        <p className={'text-nowrap font-bold text-[0.97rem] pt-0.5'}>{langFrameNames[i][is]}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
             </div>
+
+            <div className={'containerer bg-blue-700/10s w-full h-1/3 flex-center-col'}>
+                <p className={'_text2 font_bold text-8xl pb-8 select-none'}>Sites (ir para página)</p>
+
+                <SiteCard nored name={'Kaato.dev'} image={'kaatodev.png'} alt={'Kaato.dev página inicial'} title={'Site portifólio'} description={'Este site foi feito com @@Next.js e @@TypeScript'}/>
+            </div>
+
+            <Footer/>
         </div>
     );
 }

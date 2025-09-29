@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import type {NextConfig} from "next";
 
 const nextConfig: NextConfig = {
     images: {
@@ -7,9 +7,12 @@ const nextConfig: NextConfig = {
                 protocol: 'https',
                 hostname: 'lh3.googleusercontent.com',
             },
+            {
+                protocol: 'https',
+                hostname: 'skillicons.dev',
+            },
         ],
     },
-  /* config options here */
 };
 
 export default nextConfig;

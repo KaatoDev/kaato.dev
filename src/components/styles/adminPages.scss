@@ -101,18 +101,6 @@
   }
 }
 
-@keyframes _required {
-  0% {
-    box-shadow: var(--boxs7);
-  }
-  50% {
-    box-shadow: var(--boxs3);
-  }
-  100% {
-    box-shadow: var(--boxs7);
-  }
-}
-
 @keyframes _dropSelect {
   from {
     max-height: 0;

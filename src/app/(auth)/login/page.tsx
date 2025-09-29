@@ -32,8 +32,7 @@ export default function Login() {
     return (
         <div className={'_login full flex-center'}>
             <div className={'relative group _card flex flex-col border border-black/10 rounded-3xl p-6 gap-5'}>
-                <form method={'POST'} action={'/submit-form'} className={'_form flex-center flex-col gap-3'}>
-
+                <form className={'_form flex-center-col gap-3'}>
                     <label htmlFor='email'>
                         <p>Email:</p>
                         <input type="text" name={'email'} placeholder={'Email'} onChange={(e) => setEmail(e.target.value)}/>
@@ -44,14 +43,14 @@ export default function Login() {
                         <input type="password" name={'password'} placeholder={'Senha'} onChange={(e) => setPassword(e.target.value)}/>
                     </label>
 
-                    <Link className={'transition-colors duration-100'} href={'/forget-password'}>Esqueci a senha</Link>
+                    <Link className={'transition-colors duration-100'} href={'/password-reset'}>Esqueci a senha</Link>
 
                     <input type={'submit'} value={'Login'} className={'bg-blue-400/10 hover:bg-blue-500/30 cursor-pointer px-3 py-0.5 rounded-xl'} name={'loginBtn'} onClick={(e) => {
                         e.preventDefault()
                         loginBtn()
                     }}/>
-
                 </form>
+                
                 <div className={'flex w-full h-fit'}>
                     <button className={"relative w-full h-10 flex cursor-pointer"} onClick={(e) => {
                         e.preventDefault()

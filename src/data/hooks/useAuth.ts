@@ -51,9 +51,10 @@ function logout() {
 }
 
 
-function passwordValidade(password: string) {
-    const status = validatePassword(auth, password);
-    return status
+async function passwordValidade(password: string) {
+    const status = await validatePassword(auth, password)
+    console.log(status)
+    return status.isValid
 }
 
 function loginGoogleRedirect() {
@@ -76,7 +77,6 @@ export default function useAuth() {
     const isSigned = () => !!user;
 
     useLayoutEffect(() => {
-        // This runs once after redirect
         getRedirectResult(auth)
             .catch((error) => {
                 console.error("Google sign-in error:", error);

@@ -27,7 +27,9 @@
     --color2light1: rgba(133, 160, 241, .15);
     --color2light2: rgba(133, 160, 241, .1);
     --color2light3: rgba(133, 160, 241, .05);
-    --color3light1: rgba(0, 179, 255, 0.3);
+    --color3light1: rgba(0, 179, 255, .3);
+    --color3light2: rgba(0, 179, 255, .1);
+    --color3light3: rgba(0, 179, 255, .05);
     --color5light1: rgba(126, 47, 222, .1);
     --color5light2: rgba(126, 47, 222, .2);
     --color6light1: oklch(0.662 0.146 255.58 / 0.1);
@@ -43,6 +45,7 @@
     --boxs7: 0 0 7px rgba(182, 0, 55, .4), 0 0 12px rgba(241, 112, 74, .2) inset;
     --boxs8: 0 0 8px var(--color8light1), 0 0 12px var(--color9) inset;
     --boxs8-1: 0 0 12px var(--color9) inset;
+    --boxs9: 2px 2px 4px 1px var(--color2light2) inset, -1px -1px 4px 1px var(--color0dark2) inset, 0 0 4px var(--color3light1);
 }
 
 
@@ -103,6 +106,10 @@ body {
     @apply flex justify-center items-center;
 }
 
+.flex-center-col {
+    @apply flex flex-col justify-center items-center;
+}
+
 .full {
     @apply w-full h-full;
 }
@@ -113,6 +120,14 @@ body {
 
 .no-scroll {
     scrollbar-width: none;
+}
+
+.normal-link {
+    @apply text-blue-300 hover:text-blue-300/70 transition-colors duration-200;
+}
+
+.required-field {
+    animation: _required 3s ease-in-out infinite;
 }
 
 @keyframes _home {
@@ -130,5 +145,17 @@ body {
     }
     to {
         overflow: auto;
+    }
+}
+
+@keyframes _required {
+    0% {
+        box-shadow: var(--boxs7);
+    }
+    50% {
+        box-shadow: var(--boxs3);
+    }
+    100% {
+        box-shadow: var(--boxs7);
     }
 }

@@ -5,7 +5,9 @@ import {Footer} from "@/components/Footer";
 export default function UserLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <>
-            {children}
+            <div className={'flex-1 min-h-[calc(100vh-6.5rem)]'}>
+                {children}
+            </div>
             <Footer/>
         </>
     )

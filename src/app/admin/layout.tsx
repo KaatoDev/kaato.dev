@@ -6,8 +6,10 @@ import {useRouter} from "next/navigation";
 import Image from "next/image";
 import useAuth from "@/data/hooks/useAuth";
 import Link from "next/link";
+import {Footer} from "@/components/Footer";
+import {PluginProvider} from "@/data/contexts/PluginsContext";
 
-export default function AdminLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
+export default function AdminLayout({children}: Readonly<{ children: React.ReactNode; }>) {
 
     const router = useRouter()
     const {isLoaded, isSigned, isAdmin, user} = useUserContext()
@@ -50,7 +52,7 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
                     </div>
                 </div>
                 <div className={`relative _content transition-all flex flex-col items-center full gap-5 ${isClosed ? '-translate-x-[300%] ease-in-out duration-500' : 'translate-x-0 ease-in-out duration-300'}`}>
-                    <div className={'flex-center flex-col rounded-3xl bg-white/10 p-2 pb-1 mx-4 overflow-hidden'}>
+                    <div className={'flex-center-col rounded-3xl bg-white/10 p-2 pb-1 mx-4 overflow-hidden'}>
                         <div className={'relative h-32 aspect-square rounded-2xl overflow-hidden'}>
                             <Image className={`object-contain ${user?.photoURL ? 'p-2' : ''}`} fill src={user?.photoURL ?? '/google/account_box.svg'} alt={'User icon'}></Image>
                             {/*<Image className={`object-contain bg-white/10`} fill src={'/google/account_box.svg'} alt={'User icon'}></Image>*/}
@@ -68,7 +70,7 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
                         Deslogar
                     </button>
 
-                    <nav className={'w-full flex-center flex-col my-2 border-y border-gray-900/20'}>
+                    <nav className={'w-full flex-center-col my-2 border-y border-gray-900/20'}>
                         {[...navAdmin.entries()].map((it, i) =>
                             <div className={`w-full ${i == 0 ? '' : 'border-t'} border-gray-800/15 shadow-[var(--boxs3)] hover:shadow-[var(--boxs1)] transition-all duration-200 ease-out`} key={i}>
                                 <Link className={'full flex-center py-2'} href={it[1]}>
@@ -81,7 +83,10 @@ export default function AdminLayout({children,}: Readonly<{ children: React.Reac
             </div>
 
             <div className={'flex-1'}>
-                {children}
+                <PluginProvider>
+                    {children}
+                </PluginProvider>
+                <Footer/>
             </div>
         </div>
     )

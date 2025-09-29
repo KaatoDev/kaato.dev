@@ -298,7 +298,7 @@ export default function CreatePlugin() {
                         <input type="text" name={'version'} value={version} required={handleRequired(version)} placeholder={'v3.2'} onChange={(e) => setVersion(e.target.value)}/>
                     </label>
 
-                    <div className={'full flex-center flex-col gap-2'}>
+                    <div className={'full flex-center-col gap-2'}>
                         <p>Status desenvolvimento: {pluginStatus}</p>
                         <SelectDrop className={'w-48 h-8 flex'} refInput={seinput} list={statuses} display={statuses[(pluginStatus as unknown as number) - 1]} setValue={setPluginStatus}/>
                     </div>
@@ -358,7 +358,7 @@ export default function CreatePlugin() {
                 </div>
 
                 <div className={`_area col-span-3 ${versions.length === 0 ? 'row-span-1' : 'row-span-2'}`}>
-                    <form className={'flex-center flex-col gap-5'} onSubmit={(e) => handleVersions(e)}>
+                    <form className={'flex-center-col gap-5'} onSubmit={(e) => handleVersions(e)}>
                         <fieldset className={'_tv flex flex-col gap-3 pb-3 px-6 rounded-2xl shadow-[var(--boxs4)]'}>
                             <legend>Versões do plugin</legend>
                             <label className={'_lb hover:!shadow-none !animate-none !flex-row gap-1'}>
@@ -371,7 +371,8 @@ export default function CreatePlugin() {
                             </label>
                         </fieldset>
 
-                        <button className={'cursor-pointer bg-blue-500/25 hover:bg-blue-600/50 transition-colors shadow-[var(--boxs2)] p-1 px-3 rounded-xl'}>Adicionar versão
+                        <button className={'cursor-pointer bg-blue-500/25 hover:bg-blue-600/50 transition-colors shadow-[var(--boxs2)] p-1 px-3 rounded-xl'}>
+                            Adicionar versão
                         </button>
                     </form>
 

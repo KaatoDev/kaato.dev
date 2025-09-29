@@ -29,7 +29,7 @@ export const metadata: Metadata = {
         site: "https://kaato.dev/",
         title: "KaaDev Portifólio",
         description: "Site criado com Next.js e Typescript",
-        images: ["HomePage.png"],
+        images: ["kaatodev.png"],
     },
 
     icons: {
@@ -37,18 +37,17 @@ export const metadata: Metadata = {
     }
 };
 
-export default function RootLayout({children,}: Readonly<{ children: React.ReactNode; }>) {
+export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="pt-BR">
         <body className={'relative antialiased min-h-screen h-screen flex flex-col'}>
         <div id={'__superBackground'} className={'fixed _background'}/>
-        <ContextProvider>
-            <Header/>
-            <main className={'flex-1'}>
-                {children}
-                {/*<Footer/>*/}
-            </main>
-        </ContextProvider>
+            <ContextProvider>
+                <Header/>
+                <main className={'flex-1 flex flex-col'}>
+                    {children}
+                </main>
+            </ContextProvider>
         </body>
         </html>
     )

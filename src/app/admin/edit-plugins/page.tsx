@@ -13,7 +13,7 @@ export default function EditPlugins() {
     }
 
     return (
-        <div className={'flex-center flex-col'}>
+        <div className={'flex-center-col'}>
             <div>
                 <select onChange={(e) => handlePlugins(e.target.value)}>
                     <option value={'null'}>Selecione um plugin</option>
