@@ -25,6 +25,7 @@ export default function CreatePlugin() {
     const [imageLink, setImageLink] = useState('')
     const [backImageLink, setBackImageLink] = useState('')
     const [placeholders, setPlaceholders] = useState<string[]>([])
+    const [extraLinks, setExtraLinks] = useState<Map<string, string>>(new Map())
     const [createButtonText, setCreateButtonText] = useState('Criar plugin')
     const [waitPlugin, setWaitPlugin] = useState(false)
     const [onRemovePlugin, setOnRemovePlugin] = useState(false)
@@ -249,6 +250,7 @@ export default function CreatePlugin() {
             if (!!pl.image) setImageLink(pl.image)
             if (!!pl.imageBack) setBackImageLink(pl.imageBack)
             if (!!pl.placeholders) setPlaceholders([...pl.placeholders])
+            if (!!pl.extraLinks) setExtraLinks(pl.extraLinks)
         } else {
             setName('')
             setDescription('')

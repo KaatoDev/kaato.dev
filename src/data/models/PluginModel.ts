@@ -57,7 +57,7 @@ export interface PluginSubCommand {
 
 export interface PluginModel {
     versions: PluginVersion[]
-    version: string 
+    version: string
     status: 1 | 2 | 3 | 4
     name: string
     description: string
@@ -65,6 +65,9 @@ export interface PluginModel {
     items: string[]
     testedVersions: string[]
     tags: string[]
+    createdAt: Date;
+    deletedAt?: Date;
+    downloadLink?: string;
     commands?: PluginCommand[]
     repository?: string
     image?: string
@@ -73,6 +76,9 @@ export interface PluginModel {
     permissions?: PluginPermission[]
     descriptionItems?: string[]
     placeholders?: string[]
+    extraLinks?: Map<string, string>,
+    videoLink?: string;
+    worksWith?: string[];
 }
 
 export function createPluginModel(versions: PluginVersion[],
@@ -83,6 +89,8 @@ export function createPluginModel(versions: PluginVersion[],
                                   items: string[],
                                   testedVersions: string[],
                                   tags: string[],
+                                  createdAt: Date,
+                                  deletedAt?: Date | null,
                                   commands?: PluginCommand[] | null,
                                   repository?: string | null,
                                   image?: string | null,
@@ -90,7 +98,11 @@ export function createPluginModel(versions: PluginVersion[],
                                   dependencies?: string[] | null,
                                   permissions?: PluginPermission[] | null,
                                   descriptionItems?: string[] | null,
-                                  placeholders?: string[] | null): PluginModel {
+                                  placeholders?: string[] | null,
+                                  extraLinks?: Map<string, string> | null,
+                                  downloadLink?: string | null,
+                                  videoLink?: string | null,
+                                  worksWith?: string[] | null): PluginModel {
     const plugin: PluginModel = {
         versions,
         status,
@@ -100,17 +112,23 @@ export function createPluginModel(versions: PluginVersion[],
         items,
         testedVersions,
         tags,
+        createdAt,
         serverType: 'spigot'
     }
 
-    if (!!commands && commands.length > 1) plugin.commands = commands
+    if (!!commands && commands.length > 0) plugin.commands = commands
     if (!!repository && repository?.length > 1) plugin.repository = repository
     if (!!image && image?.length > 1) plugin.image = image
     if (!!imageBack && imageBack?.length > 1) plugin.imageBack = imageBack
-    if (!!dependencies && dependencies?.length > 1) plugin.dependencies = dependencies
-    if (!!permissions && permissions?.length > 1) plugin.permissions = permissions
-    if (!!descriptionItems && descriptionItems?.length > 1) plugin.descriptionItems = descriptionItems
-    if (!!placeholders && placeholders?.length > 1) plugin.placeholders = placeholders
+    if (!!dependencies && dependencies?.length > 0) plugin.dependencies = dependencies
+    if (!!permissions && permissions?.length > 0) plugin.permissions = permissions
+    if (!!descriptionItems && descriptionItems?.length > 0) plugin.descriptionItems = descriptionItems
+    if (!!placeholders && placeholders?.length > 0) plugin.placeholders = placeholders
+    if (!!extraLinks && extraLinks?.size > 0) plugin.extraLinks = extraLinks
+    if (!!deletedAt) plugin.deletedAt = deletedAt
+    if (!!downloadLink && downloadLink?.length > 1) plugin.downloadLink = downloadLink
+    if (!!videoLink && videoLink?.length > 1) plugin.videoLink = videoLink
+    if (!!worksWith && worksWith?.length > 0) plugin.worksWith = worksWith
 
     return plugin
 }

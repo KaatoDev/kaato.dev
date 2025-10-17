@@ -42,6 +42,9 @@
 }
 
 ._pluginCard {
+  ._items {
+    box-shadow: 0 0 8px rgba(var(--color10), .2), 0 0 5px rgba(var(--color4), .5) inset;
+  }
 }
 
 @keyframes _cardSize {

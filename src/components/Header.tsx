@@ -17,10 +17,24 @@ export function Header() {
             </Link>
             <div className="_search">
                 <label className="flex-center">
-                    <input type="text" placeholder=" Pesquise um plugin"/>
+                    <input type="text" placeholder=" Pesquise um plugin" onFocus={(e) => {
+                        e.preventDefault();
+                        // e.currentTarget.onfocus()
+                        const searchPh = e.currentTarget
+                        if (searchPh.placeholder == ' (A ser implementado)')
+                            searchPh.placeholder = ' Pesquise um plugin'
+                        else {
+                            setTimeout(() => {
+                                searchPh.placeholder = ' (A ser implementado)'
+                            }, 500)
+                            setTimeout(() => {
+                                searchPh.placeholder = ' Pesquise um plugin'
+                            }, 2500)
+                        }
+                    }}/>
                 </label>
-                <div className="_search-img flex-center">
-                    <div className={'relative flex-center h-4 aspect-square mr-1.5 mb-0.5'}>
+                <div className="_search-img flex-center cursor-pointer">
+                    <div className={'relative flex-center h-4 aspect-square mr-1.5 mb-0.5 select-none'}>
                         <Image fill className={'object-contain'} src={"/search.svg"} alt={"search icon"}/>
                     </div>
                 </div>

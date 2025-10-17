@@ -27,7 +27,7 @@ export default function AdminLayout({children}: Readonly<{ children: React.React
                 isAdmin().then((admin) => {
                     // if (isAdmin() && hasPermission(window.location.href))
                     const loc = window.location.href.split('/')
-                    if (!!admin && admin.permissions.includes(loc[loc.length - 1])) return
+                    if (!!admin && (loc[loc.length - 1] == 'admin' || (loc[loc.length - 2] == 'admin' && admin.permissions.includes(loc[loc.length - 1])))) return
                     else router.push('/')
                 }).catch((e) => {
                     router.push('/')
