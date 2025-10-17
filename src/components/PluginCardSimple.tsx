@@ -29,7 +29,7 @@ export function PluginCardSimple(props: { plugin: PluginModel, hasDownload?: boo
     }
 
     return (
-        <div className={'_pluginCard relative h-full max-h-[500px] aspect-[8/11] flex-center-col bg-tests'} onClick={setPluginCookie}>
+        <div className={'bg-white/10 _pluginCard relative h-full min-h-[400px] max-h-[500px] aspect-[8/11] flex-center-col bg-tests'} onClick={setPluginCookie}>
             <div className={'w-full h-1/3 flex-center-col'}>
                 <div className={'absolute w-fit h-fit top-0 left-0 rounded-full border border-white font-bold px-3.5 py-1 backdrop-blur-md'}>
                     <p>{version}</p>

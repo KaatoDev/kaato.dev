@@ -273,7 +273,7 @@ export default function CreatePlugin() {
 
     return (
         <div className={'_create-plugin containerer'}>
-            <div className={'full flex-center gap-3 py-3'}>
+            <div className={'full flex-center gap-3 py-3 mt-2'}>
                 <p>Editar plugin:</p>
                 <SelectDrop className={'w-44 h-8.5'} list={pluginsNames} display={onEditPlugin?.name ?? 'Novo Plugin'} setValue={handlePlugins}/>
                 <div className={'relative h-7.5 aspect-square cursor-pointer rounded-full bg-red-400/40'} onClick={() => handleRemovePlugin()}>
