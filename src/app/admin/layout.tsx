@@ -31,7 +31,7 @@ export default function AdminLayout({children}: Readonly<{ children: React.React
                         if (loc[loc.length - 1] == 'admin' || (loc[loc.length - 2] == 'admin' && admin.permissions.includes(loc[loc.length - 1]))) return
                         else router.push('/')
                     } else router.push('/')
-                }).catch((e) => {
+                }).catch(() => {
                     router.push('/')
                 })
             } else router.push('/login')

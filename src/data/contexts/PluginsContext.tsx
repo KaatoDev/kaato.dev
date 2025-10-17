@@ -1,6 +1,6 @@
 'use client'
 
-import {createContext, ReactNode, useContext, useEffect, useLayoutEffect, useState} from "react";
+import {createContext, ReactNode, useContext, useLayoutEffect, useState} from "react";
 import {PluginModel} from "@/data/models/PluginModel";
 import usePlugin from "@/data/hooks/usePlugin";
 
@@ -11,7 +11,8 @@ interface PluginsContextType {
 }
 
 const PluginContext = createContext<PluginsContextType>({
-    plugins: [], updatePlugins: () => {}
+    plugins: [], updatePlugins: () => {
+    }
 })
 
 export function PluginProvider({children}: { children: ReactNode }) {

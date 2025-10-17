@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export function Header() {
-    const {user, isSigned} = useUserContext()
+    const {isSigned} = useUserContext()
 
     const loginProfile: string = isSigned() ? 'Perfil' : 'Login'
 

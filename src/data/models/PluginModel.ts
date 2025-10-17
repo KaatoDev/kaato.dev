@@ -65,9 +65,8 @@ export interface PluginModel {
     items: string[]
     testedVersions: string[]
     tags: string[]
-    createdAt: Date;
-    deletedAt?: Date;
-    downloadLink?: string;
+    // createdAt: Date;
+    // deletedAt?: Date;
     commands?: PluginCommand[]
     repository?: string
     image?: string
@@ -78,6 +77,7 @@ export interface PluginModel {
     placeholders?: string[]
     extraLinks?: Map<string, string>,
     videoLink?: string;
+    downloadLink?: string;
     worksWith?: string[];
 }
 
@@ -89,8 +89,8 @@ export function createPluginModel(versions: PluginVersion[],
                                   items: string[],
                                   testedVersions: string[],
                                   tags: string[],
-                                  createdAt: Date,
-                                  deletedAt?: Date | null,
+                                  // createdAt: Date,
+                                  // deletedAt?: Date | null,
                                   commands?: PluginCommand[] | null,
                                   repository?: string | null,
                                   image?: string | null,
@@ -112,7 +112,7 @@ export function createPluginModel(versions: PluginVersion[],
         items,
         testedVersions,
         tags,
-        createdAt,
+        // createdAt,
         serverType: 'spigot'
     }
 
@@ -125,7 +125,7 @@ export function createPluginModel(versions: PluginVersion[],
     if (!!descriptionItems && descriptionItems?.length > 0) plugin.descriptionItems = descriptionItems
     if (!!placeholders && placeholders?.length > 0) plugin.placeholders = placeholders
     if (!!extraLinks && extraLinks?.size > 0) plugin.extraLinks = extraLinks
-    if (!!deletedAt) plugin.deletedAt = deletedAt
+    // if (!!deletedAt) plugin.deletedAt = deletedAt
     if (!!downloadLink && downloadLink?.length > 1) plugin.downloadLink = downloadLink
     if (!!videoLink && videoLink?.length > 1) plugin.videoLink = videoLink
     if (!!worksWith && worksWith?.length > 0) plugin.worksWith = worksWith

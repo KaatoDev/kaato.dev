@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import useLocalStorage from "@/data/hooks/useLocalStorage";
 
-export function PluginCardSimple(props: { plugin: PluginModel }) {
+export function PluginCardFull(props: { plugin: PluginModel }) {
     const {plugin} = props
 
     function status(status: 1 | 2 | 3 | 4) {

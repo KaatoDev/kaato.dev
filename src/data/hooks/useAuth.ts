@@ -1,6 +1,6 @@
 import {browserSessionPersistence, createUserWithEmailAndPassword, getAuth, getRedirectResult, GoogleAuthProvider, onAuthStateChanged, setPersistence, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, validatePassword} from "firebase/auth";
 import {firebaseApp} from "@/data/hooks/useFirebase";
-import {User} from "@firebase/auth";
+import {User} from "firebase/auth";
 import {useLayoutEffect, useState} from "react";
 import useUser from "@/data/hooks/useUser";
 

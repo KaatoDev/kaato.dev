@@ -165,13 +165,27 @@ export default function CreatePlugin() {
         const reqs = [name, description, version, versions, testedVersions, tags, items].map(it => it.length === 0).includes(true)
         setIsRequired(reqs)
 
-
         if (reqs) {
             handleCreateButtonText('Preencha os requisitos!')
             return
         }
 
-        const p = createPluginModel(versions, pluginStatus as unknown as 1 | 2 | 3 | 4, name, description, version, items, testedVersions, tags, commands, repository, imageLink, backImageLink, dependencies, permissions, descriptionItems, placeholders);
+        const p = createPluginModel(versions,
+            pluginStatus as unknown as 1 | 2 | 3 | 4,
+            name,
+            description,
+            version,
+            items,
+            testedVersions,
+            tags,
+            commands,
+            repository,
+            imageLink,
+            backImageLink,
+            dependencies,
+            permissions,
+            descriptionItems,
+            placeholders);
 
         if (p != null) setPlugin(p).then(res => {
             window.scrollTo(0, 0)
@@ -441,7 +455,7 @@ export default function CreatePlugin() {
 
                                 <ul className={'ps-8'}>
                                     <div className={'flex flex-col gap-1.5'}>
-                                        {it.subCommands?.filter((its) => its.specialName == null || its.specialName.length === 0).map((its, is, ar) => <div key={is}>
+                                        {it.subCommands?.filter((its) => its.specialName == null || its.specialName.length === 0).map((its, is) => <div key={is}>
                                             <li className={'relative w-full list-disc sflex wrap-break-word pe-2'} key={is}>
                                                 <div className={'libtn group'} onClick={() => removeSubCommand(it, its)}>
                                                     <Image className={'object-contain opacity-0 group-hover:opacity-100'} fill src={'/google/close.svg'} alt={'Remover subcomando'}></Image>

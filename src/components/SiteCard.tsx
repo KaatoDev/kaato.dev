@@ -3,10 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function SiteCard(props: { name: string, image: string, alt: string, title: string, description: string, subDescription?: string, red?: string, key?: number | null, searchParams?: string | null, inverted?: boolean, nored?: boolean }) {
-    const {name, image, alt, title, key, searchParams, inverted, subDescription, red, nored} = props
+    // const {name, image, alt, title, key, searchParams, inverted, subDescription, red, nored} = props
+    const {name, image, alt, title, inverted, subDescription, red, nored} = props
     const description = props.description.split(' ').map((it, i) => <span className={it.includes('@@') ? 'font-bold' : ''} key={i}>{(it.includes('@@') ? it.replace('@@', '') : it) + ' '}</span>)
-    const id = title.replace(' ', '').toLowerCase() + (key ?? '0')
-    const search = searchParams ?? ''
+    // const id = title.replace(' ', '').toLowerCase() + (key ?? '0')
+    // const search = searchParams ?? ''
 
     return (
         <div className={'relative _siteCard containerer max-md:pr-0! max-md:pl-6! w-full flex-center-col py-16 pb-24 select-none'}>

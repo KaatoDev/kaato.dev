@@ -1,7 +1,7 @@
 'use client'
 
 import {createContext, ReactNode, useContext} from "react";
-import {User} from "@firebase/auth";
+import {User} from "firebase/auth";
 import useAuth from "@/data/hooks/useAuth";
 import useUser from "@/data/hooks/useUser";
 import {SuperUserModel} from "@/data/models/SuperUserModel";

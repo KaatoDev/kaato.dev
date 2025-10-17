@@ -29,7 +29,7 @@ export default function Login() {
         vers[0] = emailRegex.test(email)
 
         vers[1] = await passwordValidade(password)
-        vers[2] = passwsord === confirmPassword
+        vers[2] = password === confirmPassword
 
         setVerifications([...vers])
 

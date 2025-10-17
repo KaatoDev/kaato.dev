@@ -4,7 +4,6 @@ import {useUserContext} from "@/data/contexts/UserContext";
 import useAuth from "@/data/hooks/useAuth";
 import {useRouter} from "next/navigation";
 import Image from "next/image";
-import Link from "next/link";
 
 export default function Login() {
     const {isSigned, isLoaded, user} = useUserContext()
