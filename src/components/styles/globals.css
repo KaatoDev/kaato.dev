@@ -48,6 +48,7 @@
     --boxs8: 0 0 8px var(--color8light1), 0 0 12px var(--color9) inset;
     --boxs8-1: 0 0 12px var(--color9) inset;
     --boxs9: 2px 2px 4px 1px var(--color2light2) inset, -1px -1px 4px 1px var(--color0dark2) inset, 0 0 4px var(--color3light1);
+    width: 100vw;
 }
 
 
@@ -56,6 +57,7 @@ html, body {
     padding: 0;
     box-sizing: border-box;
     scrollbar-width: none;
+    width: 100vw;
 }
 
 body {
@@ -66,10 +68,11 @@ body {
     &:has(._animateHome) {
         animation: _home 2.5s ease-in-out 500ms;
     }
+    overflow-x: hidden;
 }
 
 ._background {
-    @apply w-full h-full;
+    @apply w-screen h-full;
     z-index: -2;
     content: '';
 
@@ -101,7 +104,7 @@ body {
 }
 
 .containerer {
-    @apply w-full px-[8.5%] lg:px-[9.5%];
+    @apply w-full sm:px-[8.5%] lg:px-[9.5%];
 }
 
 .flex-center {

@@ -11,7 +11,7 @@ export function Header() {
     const loginProfile: string = isSigned() ? 'Perfil' : 'Login'
 
     return (
-        <header className="_header containerer">
+        <header className="_header containerer bg-sest">
             <Link href="/" className="w-[7rem] md:w-[10rem] lg:w-[13rem] flex-center select-none transition-[width_.2s_ease-in-out]">
                 <h2 className={'_logo text-3xl'}>KaaDev</h2>
             </Link>

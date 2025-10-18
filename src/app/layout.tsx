@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({children}: Readonly<{ children: React.ReactNode; }>) {
     return (
         <html lang="pt-BR">
-        <body className={'relative antialiased min-h-screen h-screen flex flex-col'}>
+        <body className={'min-h-screen h-screen w-screen min-w-screen flex flex-col'}>
         <div id={'__superBackground'} className={'fixed _background'}/>
             <ContextProvider>
                 <Header/>

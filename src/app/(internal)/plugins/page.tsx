@@ -12,7 +12,7 @@ export default function Plugins() {
 
     return (
         <div className={'_home full flex flex-col items-center text-white/85'}>
-            <div className={'flex-center-col text-2xl mt-[22vh] px-7 py-5 rounded-4xl shadow-[var(--boxs9)]'}>
+            <div className={'flex-center-col text-2xl mt-[22vh] px-7 py-5 text-center rounded-4xl shadow-[var(--boxs9)]'}>
                 <p className={'pb-5'}>Página nova atualmente em deselvolvimento!</p>
                 <p>Ver página de plugins antiga:</p>
                 <Link target={'_blank'} className={'text-blue-300 text-shadow-black/10 text-shadow-lg'} href={'https://old.kaato.dev/plugins'}>old.kaato.dev/plugins</Link>
