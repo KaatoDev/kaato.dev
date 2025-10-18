@@ -41,20 +41,20 @@ export default function Home() {
             </div>
 
             <div className={'containerer bg-blue-700/10s w-full h-1/2 flex-center-col'}>
-                <p className={'_text2 font_bold text-8xl pb-8 select-none'}>Tecnologias</p>
+                <p className={'_text2 font-bold text-6xl sm:text-8xl sm:pb-8 select-none'}>Tecnologias</p>
 
                 {langFrameIcons.map((it, i) => (
-                    <div className={`pt-2 pb-5 flex-center-col shadow-[var(--boxs1)] ${i == 1 ? 'rounded-b-2xl rounded-sm px-6 md:px-8 xl:px-10 2xl:px-12' : 'rounded-t-2xl rounded-b-xl mt-6 px-12 xl:px-14 2xl:px-16 gap-2'} overflow-hidden`} key={i}>
-                        <p className={`drop-shadow-[0_2px_4px_white]/50 text-stone-200/95 font-bold text-xl rounded-xl select-none ${i == 1 ? '' : 'px-2 py-1'}`}>{langFrameTitles[i]}</p>
+                    <div className={`pt-2 pb-3 sm:pb-5 flex-center-col shadow-[var(--boxs1)] ${i == 1 ? 'rounded-b-2xl rounded-sm px-3 sm:px-6 md:px-8 xl:px-10 2xl:px-12' : 'rounded-t-2xl rounded-b-xl mt-6 px-6 hover:max-sm:px-6 sm:px-12 xl:px-14 2xl:px-16 gap-2 transition-all duration-500'} overflow-hidden`} key={i}>
+                        <p className={`drop-shadow-[0_2px_4px_white]/50 text-stone-200/95 font-bold text-lg sm:text-xl rounded-xl select-none ${i == 1 ? '' : 'px-4 sm:px-2 py-1'}`}>{langFrameTitles[i]}</p>
 
                         <div className={'gap-3 md:gap-8 xl:gap-10 2xl:gap-12 flex justify-between'} key={i}>
                             {it.map((its, is) => (
                                 <div className={'group h-full flex shadow-[var(--boxs4)] hover:shadow-[var(--boxs3)] rounded-2xl transition-all duration-500 bg-blue-200/10 hover:bg-blue-200/15'} key={is}>
-                                    <div className={'relative h-16 aspect-square'} key={is}>
+                                    <div className={'relative h-6 sm:h-16 aspect-square'} key={is}>
                                         <Image loader={skillIconLoader} src={`icons?i=${its}`} className={'object-contain'} fill alt={langFrameNames[i][is]}/>
                                     </div>
-                                    <div className={'w-0 group-hover:w-28 h-full group-hover:animate-[bounceTec_.5s_ease-in-out]s flex-center transition-all group-hover:duration-300 duration-500 overflow-hidden'}>
-                                        <p className={'text-nowrap font-bold text-[0.97rem] pt-0.5'}>{langFrameNames[i][is]}</p>
+                                    <div className={`w-0 ${i == 1 ? 'group-hover:w-24' : 'group-hover:w-28'} h-full group-hover:animate-[bounceTec_.5s_ease-in-out]s flex-center transition-all group-hover:duration-300 duration-500 overflow-hidden`}>
+                                        <p className={'text-nowrap font-bold text-[0.9rem] sm:text-[0.97rem] pt-0.5'}>{langFrameNames[i][is]}</p>
                                     </div>
                                 </div>
                             ))}
@@ -64,9 +64,9 @@ export default function Home() {
             </div>
 
             <div className={'containerer bg-blue-700/10s w-full h-1/3 flex-center-col'}>
-                <Link href={'/sites'} className={'_text2 font_bold text-8xl pb-8 select-none'}>Sites</Link>
-
+                <Link href={'/sites'} className={'_text2 font-bold text-8xl pb-12 select-none'}>Sites</Link>
                 <SiteCard nored name={'Kaato.dev'} image={'kaatodev.png'} alt={'Kaato.dev página inicial'} title={'Site portifólio'} description={'Este site foi feito com @@Next.js e @@TypeScript'}/>
+                <SiteCard inverted name={'old.Kaato.dev'} image={'oldkaatodev.png'} alt={'Antiga página inicial'} title={'Site portifólio antigo'} description={'Este site foi feito com @@Next.js e @@TypeScript'}/>
             </div>
 
             <Footer/>

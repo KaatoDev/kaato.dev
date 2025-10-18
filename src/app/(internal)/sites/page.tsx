@@ -12,6 +12,7 @@ export default function Home() {
                 <SiteCard name={'CS2data.gg'} image={'cs2datagg2.png'} alt={'Página de skins do cs2data.gg'} title={'Site skins CS2'} description={'Este site foi feito com @@Next.js e @@TypeScript'} subDescription={'(Contribuição no front-end)'}/>
                 <SiteCard nored inverted name={'(Em breve)'} image={'kaatodev.png'} alt={'Kaato.dev página inicial'} title={'Site portifólio PHP'} description={'Este site será feito com @@PHP puro'}/>
                 <SiteCard nored name={'(Em breve)'} image={'kaatodev.png'} alt={'Kaato.dev página inicial'} title={'Site portifólio Laravel'} description={'Este site será feito com @@Laravel'}/>
+                <SiteCard nored name={'(Em breve)'} image={'kaatodev.png'} alt={'Kaato.dev página inicial'} title={'Site Vice City News'} description={'Este site será feito com @@Wordpress em @@PHP'} subDescription={'(Em desenvolvimento)'}/>
 
                 {/*<p>*/}
                 {/*    {'Futuramente haverá uma versão idêntica em '}*/}

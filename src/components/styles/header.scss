@@ -4,7 +4,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  width: 100%;
+  width: 100vw;
   height: 6.5rem;
   min-height: 6.5rem;
   display: flex;
@@ -32,8 +32,8 @@
   }
 
   ._search {
+    @apply hidden sm:flex;
     flex: 1;
-    display: inline-flex;
     justify-content: center;
     padding: 0 3rem;
     margin-top: .5rem;
@@ -111,15 +111,14 @@
   }
 
   ._nav {
+    @apply w-56 sm:gap-2;
     position: relative;
-    width: 14rem;
-    gap: 2rem;
     display: flex;
     justify-content: end;
     color: var(--color2);
     padding: 0;
 
-    & li {
+    li {
       &:last-child {
         width: 5rem;
       }
@@ -178,9 +177,9 @@
       }
 
       ._drop {
+        @apply w-[7.5rem] sm:w-[8.5rem];
         position: absolute;
         top: 96%;
-        width: 8.5rem;
         flex-direction: column;
         border-radius: 1rem;
         border: solid 1px var(--color0dark3);
@@ -218,7 +217,7 @@
     }
 
     @media (max-width: 768px) {
-      width: 14rem;
+      @apply max-sm:pl-6 w-48 sm:w-56;
 
       ._port {
         width: 200%;
